@@ -1,0 +1,49 @@
+form {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-direction: row;
+    height: 67%;
+    margin-top: 11%;
+    margin-bottom: 22%;
+    flex-wrap: wrap;
+}
+
+form > label {
+    flex-shrink: 0;
+    flex-basis: 15%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 2.5%;
+    display: flex;
+    align-items: center;
+    height: 10%;
+}
+
+form > input {
+    flex-shrink: 0;
+    flex-basis: 70%;
+    margin-left: 4.5%;
+    margin-right: 4.5%;
+    margin-top: 2.5%;
+    height: 10%;
+}
+
+form > select {
+    flex-shrink: 0;
+    flex-basis: 70%;
+    margin-left: 4.5%;
+    margin-right: 4.5%;
+    margin-top: 2.5%;
+    height: 10%;
+}
+
+form > input[type="submit"] {
+    flex-shrink: 0;
+    flex-basis: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 10%;
+    height: 20%;
+}

@@ -15,11 +15,8 @@ function HomeAbout() {
                         Chicago
                     </h4>
                     <blockquote>
-                        <em>
-                            <p>“Grandma Carmelina moved to Chicago from Scandriglia and married a Greek cook, Theofanis. Together, they established Little Lemon in 1960.</p>
-
-                            <p>Together with my husband Mario, we honoured their legacy with an overhauled set of Mediterranean recipes that combine good old tradition and modern tastes, having healthy lifestyles in mind. If you know us, come and discover our new specials. If you don’t, come by and you will come back”</p>
-                        </em>
+                        <p><em>“Grandma Carmelina moved to Chicago from Scandriglia and married a Greek cook, Theofanis. Together, they established Little Lemon in 1960.</em></p>
+                        <p><em>Together with my husband Mario, we honoured their legacy with an overhauled set of Mediterranean recipes that combine good old tradition and modern tastes, having healthy lifestyles in mind. If you know us, come and discover our new specials. If you don’t, come by and you will come back”</em></p>
                     </blockquote>
                     <p>
                         - Adriano Pancioni, Little Lemon's co-owner

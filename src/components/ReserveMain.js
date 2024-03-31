@@ -1,10 +1,11 @@
 import './ReserveMain.css';
+import ReserveForm from './ReserveForm';
 
 function ReserveMain() {
   return (
     <>
       <main className = "reserve-main">
-        <span>Hiya!</span>
+        <ReserveForm />
       </main>
     </>
   );
