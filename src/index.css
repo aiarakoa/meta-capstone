@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  background-color: #f4ce14;
+  border-width: 0;
+  border-radius: 1vw;
+  width: 12vw;
+  font-weight: bolder;
+  height: 2.5vw;
+  cursor: pointer;
+  font-family: 'Karla', sans-serif;
+  font-size: 1vw;
+}
+
+p {
+  font-family: 'Karla', sans-serif;
+  font-size: 1.1vw;
+  text-align: justify;
+}

@@ -1,0 +1,340 @@
+main {
+    height: 304.95vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.home-hero {
+    flex-shrink: 0;
+    flex-basis: calc(500% / 23);
+    width: 60%;
+    padding-left: 20%;
+    padding-right: 20%;
+    background: linear-gradient(#495e57 80%, transparent 0%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.home-highlights {
+    flex-shrink: 0;
+    flex-basis: calc(600% / 23);
+    width: 60%;
+    padding-left: 20%;
+    padding-right: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.home-highlights > h3 {
+    flex-basis: 80%;
+    flex-shrink: 0;
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-top: 4vw;
+    margin-bottom: 4vw;
+}
+
+.home-highlights-special-card {
+    flex-shrink: 0;
+    flex-basis: 32%;
+    display: flex;
+    flex-direction: column;
+    height: 72%;
+    margin-bottom: 8%;
+    align-items: center;
+    background-color: #edefee;
+    border-radius: 1vw 1vw 0vw 0vw;
+}
+
+.home-testimonials {
+    flex-shrink: 0;
+    flex-basis: calc(600% / 23);
+    width: 70%;
+    padding-left: 15%;
+    padding-right: 15%;
+    background-color: #495E57;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.home-about {
+    flex-shrink: 0;
+    width: 60%;
+    padding-left: 20%;
+    padding-right: 20%;
+    flex-basis: calc(600% / 23);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.home-hero-article {
+    flex-shrink: 0;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-hero-text {
+    height: 80%;
+    align-items: flex-start;
+}
+
+.home-hero-text > p {
+    color: white;
+    text-align: justify;
+    line-height: 2vw;
+    width: 80%;
+}
+
+.home-hero-text > h4 {
+    color: white;
+}
+
+.home-hero-text > button {
+    margin-top: 50%;
+}
+
+.home-hero-figure {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex-shrink: 0;
+    justify-content: center;
+    margin: 0;
+}
+
+.home-hero-image {
+    height: 100%;
+}
+
+.home-hero-image-img {
+    width: 100%;
+    display: flex;
+    flex-basis: 100%;
+    flex-shrink: 0;
+    border-radius: 1vw 1vw 1vw 1vw;
+}
+
+h2, h3, h5 {
+    font-family: 'Markazi Text';
+}
+
+h2 {
+    color: #c3a510;
+    font-size: 3vw;
+    margin: 2vw 0vw 0vw 0vw;
+}
+
+h3 {
+    font-size: 2vw;
+}
+
+h4 {
+    font-size: 1.3vw;
+    margin: 0vw 0vw 1vw 0vw;
+}
+
+h5 {
+    font-size: 1vw;
+}
+
+.h4-left {
+    font-family: 'Markazi Text';
+}
+
+.h4-right {
+    font-family: 'Karla', sans-serif;
+    color: #c3a510;
+}
+
+.home-highlights-special-card > h4 {
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 90%;
+    margin-top: 1vw;
+}
+
+.home-highlights-special-card > p {
+    flex-shrink: 0;
+    width: 90%;
+    line-height: 2vw;
+    color: #495e57;
+    flex-basis: 35%;
+}
+
+.home-highlights-dish-figure {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.home-highlights-dish-img {
+    width: 100%;
+    border-radius: 1vw 1vw 0vw 0vw;
+}
+
+.home-highlights-delivery-figure {
+    margin: 0;
+    flex-shrink: 0;
+    height: 4%;
+    display: flex;
+    width: 90%;
+}
+
+.home-highlights-delivery-img {
+    height: 1vw;
+    background-color: #f4ce14;
+    padding: .75vw .5vw .75vw .5vw;
+    border-radius: 0vw 1vw 1vw 0vw;
+}
+
+.home-highlights-special-card > h5 {
+    margin: 0;
+    margin-left: 7.5%;
+    margin-right: 2.5%;
+}
+
+.home-highlights > button {
+    flex-shrink: 0;
+    flex-basis: 20%;
+    margin-top: 4vw;
+    margin-bottom: 4vw;
+}
+
+.home-testimonials > h3 {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    flex-basis: 100%;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+
+.home-highlights-delivery-figure > figcaption {
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    background-color: #f4ce14;
+    border-radius: 1vw 0vw 0vw 1vw;
+    padding-left: 1vw;
+    height: 2.5vw;
+    font-size: 1vw;
+}
+
+.home-testimonials-left-arrow {
+    flex-shrink: 0;
+    flex-basis: calc(400% / 70);
+    margin-bottom: 10%;
+    height: 9.6%;
+    background-color: transparent;
+    background-image: url('../leftarrow.png');
+    background-size: 100% 100%;
+}
+
+.home-testimonials-right-arrow {
+    flex-shrink: 0;
+    flex-basis: calc(400% / 70);
+    margin-bottom: 10%;
+    height: 9.6%;
+    background-color: transparent;
+    background-image: url('../rightarrow.png');
+    background-size: 100% 100%;
+}
+
+.home-testimonials-review {
+    background-color: #edefee;
+    flex-shrink: 0;
+    flex-basis: calc(1250% / 70);
+    display: flex;
+    flex-wrap: wrap;
+    height: 45%;
+    margin-bottom: 10%;
+    margin-left: calc(100% / 70);
+    margin-right: calc(100% / 70);
+    padding: calc(50% / 70);
+    border-radius: 1vw 1vw 1vw 1vw;
+}
+
+.home-testimonials-review {
+    font-size: 1vw;
+}
+
+.home-testimonials-review-figure {
+    flex-shrink: 0;
+    flex-basis: 50%;
+    margin: 0;
+}
+
+.home-testimonials-review-figure > img {
+    width: 100%;
+    border-radius: 1vw 1vw 1vw 1vw;
+}
+
+.home-testimonials-review > h5 {
+    flex-shrink: 0;
+    flex-basis: 50%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
+.home-testimonials-review > p {
+    height: 50%;
+    font-size: 0.85vw;
+}
+
+.home-about-image {
+    flex-shrink: 0;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.home-about-text {
+    flex-shrink: 0;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-about-figure {
+    margin: 0;
+    flex-shrink: 0;
+    flex-basis: 35%;
+}
+
+.home-about-figure-left {
+    margin-top: 11%;
+}
+
+.home-about-figure-right {
+    margin-top: 5%;
+    transform: translateX(-2.5vw);
+}
+
+.home-about-image-img {
+    width: 100%;
+    min-width: 125%;
+    border-radius: 1vw 1vw 1vw 1vw;
+}
+
+blockquote {
+    font-size: 1.1vw;
+}
+
+.home-about-text > blockquote > em > p,
+.home-about-text > p {
+    font-size: .85vw;
+}

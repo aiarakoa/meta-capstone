@@ -1,0 +1,150 @@
+.top-nav {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    flex-basis: 58.75%;
+}
+
+.top-logo-figure {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 25%;
+    flex-shrink: 0;
+    justify-content: center;
+    margin: 0;
+}
+
+.top-logo-img {
+    width: 100%;
+    display: flex;
+    flex-basis: 34.48%;
+    flex-shrink: 0;
+}
+
+.top-nav-link {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    flex-basis: 12.5%;
+    align-items: center;
+    font-family: 'Karla', sans-serif;
+    font-size: 1.5vw;
+}
+
+.home-link {
+    background-image: none;
+}
+
+.home-link::after {
+    content: "Home";
+}
+
+.home-link:hover {
+    background-image: url('../home-icon.svg');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.home-link:hover::after {
+    content: "";
+}
+
+.about-link {
+    background-image: none;
+}
+
+.about-link::after {
+    content: "About";
+}
+
+.about-link:hover {
+    background-image: url('../about-icon.png');
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.about-link:hover::after {
+    content: "";
+}
+
+.menu-link {
+    background-image: none;
+}
+
+.menu-link::after {
+    content: "Menu";
+}
+
+.menu-link:hover {
+    background-image: url('../menu-icon.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.menu-link:hover::after {
+    content: "";
+}
+
+.reserve-link {
+    background-image: none;
+}
+
+.reserve-link::after {
+    content: "Reserve";
+}
+
+.reserve-link:hover {
+    background-image: url('../reserveicon.gif');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.reserve-link:hover::after {
+    content: "";
+}
+
+.order-link {
+    background-image: none;
+}
+
+.order-link::after {
+    content: "Order";
+}
+
+.order-link:hover {
+    background-image: url('../ordericon.svg');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.order-link:hover::after {
+    content: "";
+}
+
+.login-link {
+    background-image: none;
+}
+
+.login-link::after {
+    content: "Login";
+}
+
+.login-link:hover {
+    background-image: url('../loginicon.png');
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.login-link:hover::after {
+    content: "";
+}

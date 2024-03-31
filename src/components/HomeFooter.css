@@ -1,0 +1,289 @@
+footer {
+    height: 60.325vh;
+    background-color: #495E57;
+    width: 60%;
+    padding-left: 20%;
+    padding-right: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+footer > figure {
+    flex-shrink: 0;
+    flex-basis: 22%;
+    margin: 0;
+}
+
+footer > figure > img {
+    width: 100%;
+}
+
+footer > section {
+    flex-shrink: 0;
+    flex-basis: 78%;
+    display: flex;
+    flex-direction: row;
+}
+
+footer > section > article {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-basis: calc(100% / 3);
+}
+
+.bottom-nav-link {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    flex-basis: 12.5%;
+    align-items: center;
+    font-family: 'Karla', sans-serif;
+    font-size: 1.5vw;
+}
+
+footer > * a {
+    color: white;
+}
+
+footer > * h3 {
+    color: white;
+    text-align: center;
+}
+
+footer > * p {
+    color: white;
+    text-align: center;
+}
+
+.home-footer-link {
+    background-image: none;
+}
+
+.home-footer-link::after {
+    content: "Home";
+}
+
+.home-footer-link:hover {
+    background-image: url('../home-icon-white.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.home-footer-link:hover::after {
+    content: "";
+}
+
+.about-footer-link {
+    background-image: none;
+}
+
+.about-footer-link::after {
+    content: "About";
+}
+
+.about-footer-link:hover {
+    background-image: url('../about-icon-white.png');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.about-footer-link:hover::after {
+    content: "";
+}
+
+.menu-footer-link {
+    background-image: none;
+}
+
+.menu-footer-link::after {
+    content: "Menu";
+}
+
+.menu-footer-link:hover {
+    background-image: url('../menu-icon-white.png');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.menu-footer-link:hover::after {
+    content: "";
+}
+
+.reserve-footer-link {
+    background-image: none;
+}
+
+.reserve-footer-link::after {
+    content: "Reserve";
+}
+
+.reserve-footer-link:hover {
+    background-image: url('../reserveiconwhite.gif');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.reserve-footer-link:hover::after {
+    content: "";
+}
+
+.order-footer-link {
+    background-image: none;
+}
+
+.order-footer-link::after {
+    content: "Order";
+}
+
+.order-footer-link:hover {
+    background-image: url('../ordericonwhite.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.order-footer-link:hover::after {
+    content: "";
+}
+
+.login-footer-link {
+    background-image: none;
+}
+
+.login-footer-link::after {
+    content: "Login";
+}
+
+.login-footer-link:hover {
+    background-image: url('../loginiconwhite.png');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.login-footer-link:hover::after {
+    content: "";
+}
+
+.twitter-footer-link {
+    background-image: none;
+}
+
+.twitter-footer-link::after {
+    content: "Twitter";
+}
+
+.twitter-footer-link:hover {
+    background-image: url('../twitter-logo-white.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.twitter-footer-link:hover::after {
+    content: "";
+}
+
+.instagram-footer-link {
+    background-image: none;
+}
+
+.instagram-footer-link::after {
+    content: "Instagram";
+}
+
+.instagram-footer-link:hover {
+    background-image: url('../instagram-icon-white.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.instagram-footer-link:hover::after {
+    content: "";
+}
+
+.tiktok-footer-link {
+    background-image: none;
+}
+
+.tiktok-footer-link::after {
+    content: "TikTok";
+}
+
+.tiktok-footer-link:hover {
+    background-image: url('../tiktok-icon-white.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tiktok-footer-link:hover::after {
+    content: "";
+}
+
+.youtube-footer-link {
+    background-image: none;
+}
+
+.youtube-footer-link::after {
+    content: "YouTube";
+}
+
+.youtube-footer-link:hover {
+    background-image: url('../youtube-logo-white.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.youtube-footer-link:hover::after {
+    content: "";
+}
+
+.facebook-footer-link {
+    background-image: none;
+}
+
+.facebook-footer-link::after {
+    content: "Facebook";
+}
+
+.facebook-footer-link:hover {
+    background-image: url('../facebook-icon-white.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.facebook-footer-link:hover::after {
+    content: "";
+}
+
+.pinterest-footer-link {
+    background-image: none;
+}
+
+.pinterest-footer-link::after {
+    content: "Pinterest";
+}
+
+.pinterest-footer-link:hover {
+    background-image: url('../pinterest-icon-white.svg');
+    background-size: auto 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.pinterest-footer-link:hover::after {
+    content: "";
+}
