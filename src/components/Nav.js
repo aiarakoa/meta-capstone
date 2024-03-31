@@ -1,34 +1,22 @@
 import './Nav.css';
 import logo from '../logo.png';
+import LemonLink from './LemonLink';
 
 function Nav() {
-  const rickrollURL         = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
   const logoAlt             = "Little Lemon";
   return (
     <>
       <nav        className = "top-nav">
         <figure   className = "top-logo-figure">
-          <img    className = "top-logo-img"      src = {logo}    alt = {logoAlt} />
+          <img    className = "top-logo-img"      src = {logo}          alt = {logoAlt} />
         </figure>
-        <a        className = "top-nav-link home-link"            href = {rickrollURL}>
-          
-        </a>
-        <a        className = "top-nav-link about-link"           href = {rickrollURL}>
-
-        </a>
-        <a        className = "top-nav-link menu-link"            href = {rickrollURL}>
-
-        </a>
-        <a        className = "top-nav-link reserve-link"         href = {rickrollURL}>
-
-        </a>
-        <a        className = "top-nav-link order-link"           href = {rickrollURL}>
-
-        </a>
-        <a        className = "top-nav-link login-link"           href = {rickrollURL}>
-
-        </a>
-      </nav>      
+        <LemonLink linkLocation = 'header'        linkType = 'home'     url = '' />
+        <LemonLink linkLocation = 'header'        linkType = 'about'    url = 'about' />
+        <LemonLink linkLocation = 'header'        linkType = 'menu'     url = 'menu' />
+        <LemonLink linkLocation = 'header'        linkType = 'reserve'  url = 'reserve' />
+        <LemonLink linkLocation = 'header'        linkType = 'order'    url = 'order' />
+        <LemonLink linkLocation = 'header'        linkType = 'login'    url = 'login' />
+      </nav>
     </>
   );
 }

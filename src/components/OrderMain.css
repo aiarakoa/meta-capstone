@@ -1,0 +1,26 @@
+.order-main {
+    height: 88.775vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+main > figure {
+    display: flex;
+    width: 60%;
+    flex-shrink: 0;
+    margin-left: 20%;
+    margin-right: 20%;
+    height: 10%;
+    justify-content: center;
+}
+
+main > figure > figcaption {
+    display: flex;
+    align-items: center;
+    font-family: 'Markazi Text';
+    font-weight: bolder;
+    font-size: 4vw;
+}

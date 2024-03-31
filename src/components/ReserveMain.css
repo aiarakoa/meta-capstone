@@ -1,0 +1,6 @@
+.reserve-main {
+    height: 88.775vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
