@@ -17,7 +17,7 @@ import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
 import FullScreenSection from "./FullScreenSection";
-import { MdEmail , MdCall, MdDateRange, MdAccessTime } from "react-icons/md"
+import { MdEmail , MdCall, MdDateRange, MdAccessTime, MdOutlineEmojiPeople, MdPeople, MdCake } from "react-icons/md"
 
 function doNothing() {}
 
@@ -118,7 +118,10 @@ function ReserveForm() {
                 </Select>
               </FormControl>
               <FormControl isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
-                <FormLabel htmlFor="reservationNumGuests">Number of guests</FormLabel>
+                <HStack>
+                  <FormLabel htmlFor="reservationNumGuests">Number of guests</FormLabel>
+                  <MdPeople />
+                </HStack>
                 <Input
                   id="reservationNumGuests"
                   name="reservationNumGuests"
@@ -128,7 +131,10 @@ function ReserveForm() {
                 <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="reservationOccasion">Occasion</FormLabel>
+                <HStack>
+                  <FormLabel htmlFor="reservationOccasion">Occasion</FormLabel>
+                  <MdCake />
+                </HStack>
                 <Select
                   id="reservationOccasion"
                   name="reservationOccasion"
@@ -140,7 +146,10 @@ function ReserveForm() {
                 </Select>
               </FormControl>
               <FormControl isInvalid={formik.touched.email && !!formik.errors.email}>
-                <FormLabel htmlFor="reservationUserName">User Name</FormLabel>
+                <HStack>
+                  <FormLabel htmlFor="reservationUserName">User Name</FormLabel>
+                  <MdOutlineEmojiPeople />
+                </HStack>
                 <Input
                   id="reservationUserName"
                   name="reservationUserName"
