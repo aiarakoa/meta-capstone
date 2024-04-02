@@ -13,7 +13,7 @@ code {
 }
 
 button {
-  background-color: #f4ce14;
+  background-color: #f4ce14 !important;
   border-width: 0;
   border-radius: 1vw;
   width: 12vw;
@@ -28,4 +28,10 @@ p {
   font-family: 'Karla', sans-serif;
   font-size: 1.1vw;
   text-align: justify;
+}
+
+:where(*,
+*::before,
+*::after) {
+  box-sizing:inherit !important;
 }

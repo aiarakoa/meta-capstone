@@ -1,7 +1,7 @@
 import './ReserveForm.css';
 import React, {useEffect} from "react";
 import { useFormik } from "formik";
-/* import {
+import {
   Box,
   Button,
   FormControl,
@@ -10,12 +10,14 @@ import { useFormik } from "formik";
   Heading,
   Input,
   Select,
-  Textarea,
+  HStack,
   VStack,
 } from "@chakra-ui/react";
- */import * as Yup from 'yup';
+import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
+import FullScreenSection from "./FullScreenSection";
+import { MdEmail , MdCall, MdDateRange, MdAccessTime } from "react-icons/md"
 
 function doNothing() {}
 
@@ -29,7 +31,7 @@ function destructureResponse(response) {
 function ReserveForm() {
     const {isLoading, response, submit} = useSubmit();
     const {onOpen} = useAlertContext();
-/*     const formik = useFormik({
+     const formik = useFormik({
         initialValues: {
           reservationDate: '',
           reservationTime: '',
@@ -55,14 +57,14 @@ function ReserveForm() {
                 }
             });
         },
-        validationSchema: Yup.object({}).shape({ */
+        validationSchema: Yup.object({}).shape({
 /*
           firstName: Yup.string().required('Required'),
           email: Yup.string().email('Invalid email address').required('Required'),
           type: Yup.string().default(undefined).optional().nullable(),
           comment: Yup.string().min(25, 'Must be at least 25 characters').required('Required'),
 */
-/*             reservationDate: Yup.string().required('Required'),
+             reservationDate: Yup.string().required('Required'),
             reservationTime: Yup.string().required('Required'),
             reservationNumGuests: Yup.string().required('Required'),
             reservationOccasion: Yup.string().required('Required'),  
@@ -70,11 +72,118 @@ function ReserveForm() {
             reservationUserMail: Yup.string().required('Required'),  
             reservationUserPhone: Yup.string().required('Required'),  
         }),
-    }); */
+    });
 
     return (
         <>
-            <span>Hiya!</span>
+    <FullScreenSection
+      backgroundColor="white"
+      py={16}
+      spacing={8}
+    >
+      <VStack w="60%" p={32} alignItems="flex-start">
+        <Heading as="h1" id="reservation-section">
+          Reservation
+        </Heading>
+        <Box p={6} rounded="md" w="100%">
+          <form onSubmit={formik.handleSubmit}>
+          <VStack spacing={4}>
+              <FormControl isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
+                <HStack>
+                  <FormLabel htmlFor="reservationDate">Date</FormLabel>
+                  <MdDateRange />
+                </HStack>
+                <Input
+                  id="reservationDate"
+                  name="reservationDate"
+                  type="date"
+                  {...formik.getFieldProps("reservationDate")}
+                />
+                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+              </FormControl>
+              <FormControl>
+                <HStack>
+                  <FormLabel htmlFor="reservationTime">Time</FormLabel>
+                  <MdAccessTime />
+                </HStack>
+                <Select
+                  id="reservationTime"
+                  name="reservationTime"
+                  {...formik.getFieldProps("reservationTime")}
+                >
+                  <option value="eleven-30">11:30-12:15</option>
+                  <option value="twelve-15">12:15-13:00</option>
+                  <option value="one-o-clock">13:00-13:45</option>
+                  <option value="one-45">13:45-14:30</option>
+                </Select>
+              </FormControl>
+              <FormControl isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
+                <FormLabel htmlFor="reservationNumGuests">Number of guests</FormLabel>
+                <Input
+                  id="reservationNumGuests"
+                  name="reservationNumGuests"
+                  type="number"
+                  {...formik.getFieldProps("reservationNumGuests")}
+                />
+                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="reservationOccasion">Occasion</FormLabel>
+                <Select
+                  id="reservationOccasion"
+                  name="reservationOccasion"
+                  {...formik.getFieldProps("reservationOccasion")}
+                >
+                  <option value="birthday">Birthday</option>
+                  <option value="anniversary">Anniversary</option>
+                  <option value="hangout">Just hangin' out!</option>
+                </Select>
+              </FormControl>
+              <FormControl isInvalid={formik.touched.email && !!formik.errors.email}>
+                <FormLabel htmlFor="reservationUserName">User Name</FormLabel>
+                <Input
+                  id="reservationUserName"
+                  name="reservationUserName"
+                  type="text"
+                  {...formik.getFieldProps("reservationUserName")}
+                />
+                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={formik.touched.email && !!formik.errors.email}>
+                <HStack>
+                  <FormLabel htmlFor="reservationUserMail">User Mail</FormLabel>
+                  <MdEmail />
+                </HStack>
+                <Input
+                  id="reservationUserMail"
+                  name="reservationUserMail"
+                  type="email"
+                  {...formik.getFieldProps("reservationUserMail")}
+                />
+                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
+                <HStack>
+                  <FormLabel htmlFor="reservationUserPhone">User Phone</FormLabel>
+                  <MdCall />
+                </HStack>
+                <Input
+                  id="reservationUserPhone"
+                  name="reservationUserPhone"
+                  type="tel"
+                  {...formik.getFieldProps("reservationUserPhone")}
+                />
+                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+              </FormControl>
+              <Button type="submit" colorScheme="#f4ce14" color="black" width="full">
+                {isLoading  ? "Loading..."  : "Make your reservation"}
+              </Button>
+            </VStack>
+          </form>
+        </Box>
+      </VStack>
+    </FullScreenSection>
+
 {/*             <form>
                 <label for="res-date">Choose date</label>
                 <input type="date" id="res-date" />
