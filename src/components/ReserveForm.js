@@ -1,5 +1,5 @@
 import './ReserveForm.css';
-import React, {useEffect} from "react";
+import React from "react";
 import { useFormik } from "formik";
 import {
   Box,
@@ -12,6 +12,11 @@ import {
   Select,
   HStack,
   VStack,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
@@ -69,7 +74,7 @@ function ReserveForm() {
             reservationNumGuests: Yup.string().required('Required'),
             reservationOccasion: Yup.string().required('Required'),  
             reservationUserName: Yup.string().required('Required'),  
-            reservationUserMail: Yup.string().required('Required'),  
+            reservationUserMail: Yup.string().email('Invalid email address').required('Required'),  
             reservationUserPhone: Yup.string().required('Required'),  
         }),
     });
@@ -82,26 +87,30 @@ function ReserveForm() {
       spacing={8}
     >
       <VStack w="60%" p={32} alignItems="flex-start">
-        <Heading as="h1" id="reservation-section">
+        <Heading as="h1" id="reservation-section" fontSize="2.5vw">
           Reservation
+        </Heading>
+        <Heading as="h4" id="reservation-section" fontSize="1.25vw">
+          (all fields required)
         </Heading>
         <Box p={6} rounded="md" w="100%">
           <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4}>
-              <FormControl isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
+              <FormControl isInvalid={formik.touched.reservationDate && !!formik.errors.reservationDate}>
                 <HStack>
                   <FormLabel htmlFor="reservationDate">Date</FormLabel>
                   <MdDateRange />
                 </HStack>
                 <Input
+                  placeholder='Select a date'
                   id="reservationDate"
                   name="reservationDate"
                   type="date"
                   {...formik.getFieldProps("reservationDate")}
                 />
-                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+                <FormErrorMessage>{formik.errors.reservationDate}</FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={formik.touched.reservationTime && !!formik.errors.reservationTime}>
                 <HStack>
                   <FormLabel htmlFor="reservationTime">Time</FormLabel>
                   <MdAccessTime />
@@ -109,6 +118,7 @@ function ReserveForm() {
                 <Select
                   id="reservationTime"
                   name="reservationTime"
+                  placeholder="Select time slot"
                   {...formik.getFieldProps("reservationTime")}
                 >
                   <option value="eleven-30">11:30-12:15</option>
@@ -116,21 +126,30 @@ function ReserveForm() {
                   <option value="one-o-clock">13:00-13:45</option>
                   <option value="one-45">13:45-14:30</option>
                 </Select>
+                <FormErrorMessage>{formik.errors.reservationTime}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
+              <FormControl isInvalid={formik.touched.reservationNumGuests && !!formik.errors.reservationNumGuests}>
                 <HStack>
                   <FormLabel htmlFor="reservationNumGuests">Number of guests</FormLabel>
                   <MdPeople />
                 </HStack>
-                <Input
+{/*                 <Input
                   id="reservationNumGuests"
                   name="reservationNumGuests"
                   type="number"
+                  placeholder='Please specify how many'
                   {...formik.getFieldProps("reservationNumGuests")}
-                />
-                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+                /> */}
+                <NumberInput placeholder='Please specify how many' min={1} max={10}>
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+                <FormErrorMessage>{formik.errors.reservationNumGuests}</FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={formik.touched.reservationOccasion && !!formik.errors.reservationOccasion}>
                 <HStack>
                   <FormLabel htmlFor="reservationOccasion">Occasion</FormLabel>
                   <MdCake />
@@ -138,14 +157,16 @@ function ReserveForm() {
                 <Select
                   id="reservationOccasion"
                   name="reservationOccasion"
+                  placeholder="Is it a special event?"
                   {...formik.getFieldProps("reservationOccasion")}
                 >
                   <option value="birthday">Birthday</option>
                   <option value="anniversary">Anniversary</option>
                   <option value="hangout">Just hangin' out!</option>
                 </Select>
+                <FormErrorMessage>{formik.errors.reservationOccasion}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={formik.touched.email && !!formik.errors.email}>
+              <FormControl isInvalid={formik.touched.reservationUserName && !!formik.errors.reservationUserName}>
                 <HStack>
                   <FormLabel htmlFor="reservationUserName">User Name</FormLabel>
                   <MdOutlineEmojiPeople />
@@ -153,12 +174,13 @@ function ReserveForm() {
                 <Input
                   id="reservationUserName"
                   name="reservationUserName"
+                  placeholder='Please give a contact name'
                   type="text"
                   {...formik.getFieldProps("reservationUserName")}
                 />
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                <FormErrorMessage>{formik.errors.reservationUserName}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={formik.touched.email && !!formik.errors.email}>
+              <FormControl isInvalid={formik.touched.reservationUserMail && !!formik.errors.reservationUserMail}>
                 <HStack>
                   <FormLabel htmlFor="reservationUserMail">User Mail</FormLabel>
                   <MdEmail />
@@ -166,12 +188,13 @@ function ReserveForm() {
                 <Input
                   id="reservationUserMail"
                   name="reservationUserMail"
+                  placeholder='Please give an e-mail'
                   type="email"
                   {...formik.getFieldProps("reservationUserMail")}
                 />
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                <FormErrorMessage>{formik.errors.reservationUserMail}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
+              <FormControl isInvalid={formik.touched.reservationUserPhone && !!formik.errors.reservationUserPhone}>
                 <HStack>
                   <FormLabel htmlFor="reservationUserPhone">User Phone</FormLabel>
                   <MdCall />
@@ -180,13 +203,41 @@ function ReserveForm() {
                   id="reservationUserPhone"
                   name="reservationUserPhone"
                   type="tel"
+                  placeholder='Please give a contact number'
                   {...formik.getFieldProps("reservationUserPhone")}
                 />
-                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+                <FormErrorMessage>{formik.errors.reservationUserPhone}</FormErrorMessage>
               </FormControl>
-              <Button type="submit" colorScheme="#f4ce14" color="black" width="full">
+              <Button type="submit" colorScheme="#f4ce14" color="black" width="full" isDisabled={!(formik.isValid && formik.dirty)}>
                 {isLoading  ? "Loading..."  : "Make your reservation"}
               </Button>
+{/*               <Box
+                as='button'
+                height='24px'
+                lineHeight='1.2'
+                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                border='1px'
+                px='8px'
+                borderRadius='2px'
+                fontSize='14px'
+                fontWeight='semibold'
+                bg='#f5f6f7'
+                borderColor='#ccd0d5'
+                color='#4b4f56'
+                _hover={{ bg: '#ebedf0' }}
+                _active={{
+                  bg: '#dddfe2',
+                  transform: 'scale(0.98)',
+                  borderColor: '#bec3c9',
+                }}
+                _focus={{
+                  boxShadow:
+                    '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
+                }}
+              >
+                Join Group
+              </Box>
+ */}
             </VStack>
           </form>
         </Box>
