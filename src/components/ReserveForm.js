@@ -1,6 +1,6 @@
 import './ReserveForm.css';
 import React from "react";
-import { Formik, useFormikContext } from "formik";
+import { Formik, useFormikContext, Field, Form, useField } from "formik";
 import {
   Box,
   Button,
@@ -24,12 +24,123 @@ import { IoCheckmarkCircle } from "react-icons/io5"
 
 function doNothing() {}
 
-function destructureResponse(response) {
-    let type, message   =   null;
-    response == null                            ?   type = ''                                                   :   type = response.type;
-    response == null                            ?   message = 'Something went wrong, please try again later!'   :   message = response.message;
-    return [type, message];
+const showAvailableTimeSlots = () => {
+  return [
+    (<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>),
+    (<option key="eleven30" value="eleven30">11:30-12:15</option>),
+    (<option key="twelve15" value="twelve15">12:15-13:00</option>),
+    (<option key="one00" value="one00">13:00-13:45</option>),
+    (<option key="one45" value="one45">13:45-14:30</option>)
+  ]
 }
+
+const InputValueType              =   {untouchedInput: 0, touchedInvalidInput: 1, touchedInvalidInput: 2}
+
+const dateMessage                 =   (touched, errors) => {return helpMessage(touched.reservationDate, errors.reservationDate, 'Please select a date (required)')}
+
+const timeMessage                 =   (touched, errors) => {return helpMessage(touched.reservationTime, errors.reservationTime, 'Please select a time slot (required)')}
+
+const numGuestsMessage            =   (touched, errors) => {return helpMessage(touched.reservationNumGuests, errors.reservationNumGuests, 'Please enter how many guests are expected (required)')}
+
+const occasionMessage             =   (touched, errors) => {return helpMessage(touched.reservationOccasion, errors.reservationOccasion, 'Please indicate whether it is a special occasion (required)')}
+
+const nameMessage                 =   (touched, errors) => {return helpMessage(touched.reservationUserName, errors.reservationUserName, 'Please give a contact name (required)')}
+
+const mailMessage                 =   (touched, errors) => {return helpMessage(touched.reservationUserMail, errors.reservationUserMail, 'Please give an e-mail (required)')}
+
+const phoneMessage                =   (touched, errors) => {return helpMessage(touched.reservationUserPhone, errors.reservationUserPhone, 'Please give a contact number (required)')}
+
+const helpMessage = (touched, error, messageText) => {
+  switch(checkInputStatus(touched, error)) {
+    case InputValueType.touchedInvalidInput:         return (
+      <FormErrorMessage>
+        {error}
+      </FormErrorMessage>
+    );
+    case InputValueType.touchedValidInput:           return (
+      <FormHelperText>
+        <IconContext.Provider
+          value={{color: '#00cc00'}}>
+          <IoCheckmarkCircle />
+        </IconContext.Provider>
+      </FormHelperText>
+    );
+    default:                          return (
+      <FormHelperText>
+        {messageText}
+      </FormHelperText>
+    )
+  }
+}
+
+const styleInputBorderColor       =   (touched, error) => {
+  switch(checkInputStatus(touched, error)) {
+    case InputValueType.touchedInvalidInput:         return 'red.600';
+    case InputValueType.touchedValidInput:           return 'green.400';
+    default:                          return 'grey.200';
+  }
+}
+
+const styleInputBorderWidth       =   (touched, error) => {
+  switch(checkInputStatus(touched, error)) {
+    case InputValueType.touchedInvalidInput:
+    case InputValueType.touchedValidInput:           return '.3vw';
+    default:                          return '.1vw';
+  }
+}
+
+const checkInputStatus            =   (touched, error) => {
+  switch(true) {
+    case touched == null:             return InputValueType.untouchedInput;
+    case error == null:               return InputValueType.touchedValidInput;
+    default:                          return InputValueType.touchedInvalidInput;
+  }
+}
+
+function MyTimeSlotsField(props) {
+  const {
+    values: { reservationDate },
+    setFieldValue,
+  } = useFormikContext();
+  const [field, meta, helpers] = useField(props);
+
+  React.useEffect(() => {
+    let isCurrent = true;
+    console.log(`Hiya effect in time! Date: ${reservationDate}`);
+    // your business logic around when to fetch goes here.
+    // if (textA.trim() !== '' && textB.trim() !== '') {
+    //   fetchNewTextC(textA, textB).then((textC) => {
+    //     if (!!isCurrent) {
+    //       // prevent setting old values
+    //       setFieldValue(props.name, textC);
+    //     }
+    //   });
+    // }
+    return () => {
+      isCurrent = false;
+    };
+  }, [reservationDate, setFieldValue, props.name]);
+
+  return (
+    <>
+      <Flex  align="center">
+        <FormLabel htmlFor={props.name} style={{margin: '1vw 1vw 1vw 0vw'}}>Time</FormLabel>
+        <MdAccessTime />
+      </Flex>
+      <Select
+        id={props.name}
+        name={props.name}
+        borderColor={styleInputBorderColor(meta.touched, meta.error)}
+        borderWidth={styleInputBorderWidth(meta.touched, meta.error)}
+        {...props}
+        {...field}
+      >
+        {showAvailableTimeSlots()}
+      </Select>
+      {helpMessage(meta.touched, meta.error, 'Please select a time slot (required)')}
+    </>
+  );
+};
 
 function ReserveForm() {
     const {isLoading, response, submit} = useSubmit();
@@ -206,6 +317,7 @@ function ReserveForm() {
                           {dateMessage(touched, errors)}
                         </FormControl>
                         <FormControl isInvalid={touched.reservationTime && !!errors.reservationTime}>
+{/* 
                           <Flex  align="center">
                             <FormLabel htmlFor="reservationTime" style={{margin: '1vw 1vw 1vw 0vw'}}>Time</FormLabel>
                             <MdAccessTime />
@@ -220,7 +332,9 @@ function ReserveForm() {
                             {showAvailableTimeSlots()}
                           </Select>
                           {timeMessage(touched, errors)}
-                        </FormControl>
+*/}
+                            <MyTimeSlotsField name="reservationTime" />
+                          </FormControl>
                         <FormControl isInvalid={touched.reservationNumGuests && !!errors.reservationNumGuests}>
                           <Flex  align="center">
                             <FormLabel htmlFor="reservationNumGuests" style={{margin: '1vw 1vw 1vw 0vw'}}>Number of guests</FormLabel>
