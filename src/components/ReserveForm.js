@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -11,13 +12,7 @@ import {
   Heading,
   Input,
   Select,
-  HStack,
   VStack,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
@@ -39,7 +34,10 @@ function destructureResponse(response) {
 function ReserveForm() {
     const {isLoading, response, submit} = useSubmit();
     const {onOpen} = useAlertContext();
-    const formik = useFormik({
+    const untouchedInput                =   0;
+    const touchedValidInput             =   1;
+    const touchedInvalidInput           =   2;
+    const {handleSubmit, errors, touched, getFieldProps, handleChange, isValid, dirty} = useFormik({
         initialValues: {
           reservationDate: '',
           reservationTime: '',
@@ -51,43 +49,36 @@ function ReserveForm() {
         },
         onSubmit: (values, actions) => {
             submit("/", {firstName: values.firstName});
+/*
             let [type, message]         =   destructureResponse(response);
             onOpen(type, message);
             response.type === 'error'   ?   doNothing()                                                     :   actions.resetForm({
                 values: {
                     reservationDate: '',
-                    reservationTime: '',
+                    reservationTime: 'placeholder',
                     reservationNumGuests: '',
-                    reservationOccasion: '',  
+                    reservationOccasion: 'placeholder',  
                     reservationUserName: '',  
                     reservationUserMail: '',  
                     reservationUserPhone: '',  
                 }
             });
+            */
         },
         validationSchema: Yup.object({}).shape({
-/*
-          firstName: Yup.string().required('Required'),
-          email: Yup.string().email('Invalid email address').required('Required'),
-          type: Yup.string().default(undefined).optional().nullable(),
-          comment: Yup.string().min(25, 'Must be at least 25 characters').required('Required'),
-*/
-             reservationDate: Yup.string().required('Required'),
+            reservationDate: Yup.string().required('Required'),
             reservationTime: Yup.string().required('Required'),
-            reservationNumGuests: Yup.string().required('Required'),
+            reservationNumGuests: Yup.number().min(1,'At least 1 guest').max(10,'No more than 10 guests').required('Required'),
             reservationOccasion: Yup.string().required('Required'),  
             reservationUserName: Yup.string().required('Required'),  
             reservationUserMail: Yup.string().email('Invalid email address').required('Required'),  
             reservationUserPhone: Yup.string().required('Required'),  
         }),
     });
-    const handleDateChange = () => {
-      console.log(formik.values.reservationDate);
-    }
 
     const showAvailableTimeSlots = () => {
       return [
-        (<option selected="true" hidden="true" key="placeholder" value="placeholder">Pick a time slot</option>),
+        (<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>),
         (<option key="eleven30" value="eleven30">11:30-12:15</option>),
         (<option key="twelve15" value="twelve15">12:15-13:00</option>),
         (<option key="one00" value="one00">13:00-13:45</option>),
@@ -95,28 +86,28 @@ function ReserveForm() {
       ]
     }
 
-    const dateMessage       = () => {return helpMessage(formik.errors.reservationDate, formik.touched.reservationDate, 'Please select a date (required)')}
+    const dateMessage                 =   () => {return helpMessage(touched.reservationDate, errors.reservationDate, 'Please select a date (required)')}
 
-    const timeMessage       = () => {return helpMessage(formik.errors.reservationTime, formik.touched.reservationTime, 'Please select a time slot (required)')}
+    const timeMessage                 =   () => {return helpMessage(touched.reservationTime, errors.reservationTime, 'Please select a time slot (required)')}
 
-    const numGuestsMessage  = () => {return helpMessage(formik.errors.reservationNumGuests, formik.touched.reservationNumGuests, 'Please enter how many guests are expected (required)')}
+    const numGuestsMessage            =   () => {return helpMessage(touched.reservationNumGuests, errors.reservationNumGuests, 'Please enter how many guests are expected (required)')}
 
-    const occasionMessage   = () => {return helpMessage(formik.errors.reservationOccasion, formik.touched.reservationOccasion, 'Please indicate whether it is a special occasion (required)')}
+    const occasionMessage             =   () => {return helpMessage(touched.reservationOccasion, errors.reservationOccasion, 'Please indicate whether it is a special occasion (required)')}
 
-    const nameMessage       = () => {return helpMessage(formik.errors.reservationUserName, formik.touched.reservationUserName, 'Please give a contact name (required)')}
+    const nameMessage                 =   () => {return helpMessage(touched.reservationUserName, errors.reservationUserName, 'Please give a contact name (required)')}
 
-    const mailMessage       = () => {return helpMessage(formik.errors.reservationUserMail, formik.touched.reservationUserMail, 'Please give an e-mail (required)')}
+    const mailMessage                 =   () => {return helpMessage(touched.reservationUserMail, errors.reservationUserMail, 'Please give an e-mail (required)')}
 
-    const phoneMessage      = () => {return helpMessage(formik.errors.reservationUserPhone, formik.touched.reservationUserPhone, 'Please give a contact number (required)')}
+    const phoneMessage                =   () => {return helpMessage(touched.reservationUserPhone, errors.reservationUserPhone, 'Please give a contact number (required)')}
 
-    const helpMessage = (error, touched, messageText) => {
-      switch(true) {
-        case !!error: return (
+    const helpMessage = (touched, error, messageText) => {
+      switch(checkInputStatus(touched, error)) {
+        case touchedInvalidInput:         return (
           <FormErrorMessage>
             {error}
           </FormErrorMessage>
         );
-        case touched: return (
+        case touchedValidInput:           return (
           <FormHelperText>
             <IconContext.Provider
               value={{color: '#00cc00'}}>
@@ -124,7 +115,7 @@ function ReserveForm() {
             </IconContext.Provider>
           </FormHelperText>
         );
-        default: return (
+        default:                          return (
           <FormHelperText>
             {messageText}
           </FormHelperText>
@@ -132,190 +123,168 @@ function ReserveForm() {
       }
     }
 
-    return (
-        <>
-    <FullScreenSection
-      backgroundColor="white"
-      py={16}
-      spacing={8}
-    >
-      <VStack w="60%" p={32} alignItems="flex-start">
-        <Heading as="h1" id="reservation-section" fontSize="2.5vw">
-          Reservation
-        </Heading>
-        <Heading as="h4" id="reservation-section" fontSize="1.25vw">
-          (all fields required)
-        </Heading>
-        <Box p={6} rounded="md" w="100%">
-          <form onSubmit={formik.handleSubmit}>
-          <VStack spacing={4}>
-              <FormControl isInvalid={formik.touched.reservationDate && !!formik.errors.reservationDate}>
-                <HStack>
-                  <FormLabel htmlFor="reservationDate">Date</FormLabel>
-                  <MdDateRange />
-                </HStack>
-                <Input
-                  id="reservationDate"
-                  name="reservationDate"
-                  type="date"
-                  borderColor={formik.touched.reservationDate ? 'green.400'  : 'grey.200'}
-                  borderWidth={formik.touched.reservationDate ? '.3vw'  : '.1vw'}
-                  _invalid="red.600"
-                  _focus="blue.500"
-                  _hover="orange.100"
-                  onChange={handleDateChange}
-                  {...formik.getFieldProps("reservationDate")}
-                />
-                {dateMessage()}
-              </FormControl>
-              <FormControl isInvalid={formik.touched.reservationTime && !!formik.errors.reservationTime}>
-                <HStack>
-                  <FormLabel htmlFor="reservationTime">Time</FormLabel>
-                  <MdAccessTime />
-                </HStack>
-                <Select
-                  id="reservationTime"
-                  name="reservationTime"
-                  {...formik.getFieldProps("reservationTime")}
-                >
-                  {showAvailableTimeSlots()}
-                </Select>
-                {timeMessage()}
-              </FormControl>
-              <FormControl isInvalid={formik.touched.reservationNumGuests && !!formik.errors.reservationNumGuests}>
-                <HStack>
-                  <FormLabel htmlFor="reservationNumGuests">Number of guests</FormLabel>
-                  <MdPeople />
-                </HStack>
-                <NumberInput  
-                    name="reservationNumGuests"
-                    id="reservationNumGuests"
-                    min={1}
-                    max={10}>
-                  <NumberInputField/>
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-                {numGuestsMessage()}
-              </FormControl>
-              <FormControl isInvalid={formik.touched.reservationOccasion && !!formik.errors.reservationOccasion}>
-                <HStack>
-                  <FormLabel htmlFor="reservationOccasion">Occasion</FormLabel>
-                  <MdCake />
-                </HStack>
-                <Select
-                  id="reservationOccasion"
-                  name="reservationOccasion"
-                  {...formik.getFieldProps("reservationOccasion")}
-                >
-                  <option selected="true" hidden="true" key="placeholder" value="placeholder">Occasion?</option>
-                  <option value="birthday">Birthday</option>
-                  <option value="anniversary">Anniversary</option>
-                  <option value="hangout">Just hangin' out!</option>
-                </Select>
-                {occasionMessage()}
-              </FormControl>
-              <FormControl isInvalid={formik.touched.reservationUserName && !!formik.errors.reservationUserName}>
-                <HStack>
-                  <FormLabel htmlFor="reservationUserName">User Name</FormLabel>
-                  <MdOutlineEmojiPeople />
-                </HStack>
-                <Input
-                  id="reservationUserName"
-                  name="reservationUserName"
-                  type="text"
-                  {...formik.getFieldProps("reservationUserName")}
-                />
-                {nameMessage()}
-              </FormControl>
-              <FormControl isInvalid={formik.touched.reservationUserMail && !!formik.errors.reservationUserMail}>
-                <HStack>
-                  <FormLabel htmlFor="reservationUserMail">User Mail</FormLabel>
-                  <MdEmail />
-                </HStack>
-                <Input
-                  id="reservationUserMail"
-                  name="reservationUserMail"
-                  type="email"
-                  {...formik.getFieldProps("reservationUserMail")}
-                />
-                {mailMessage()}
-              </FormControl>
-              <FormControl isInvalid={formik.touched.reservationUserPhone && !!formik.errors.reservationUserPhone}>
-                <HStack>
-                  <FormLabel htmlFor="reservationUserPhone">User Phone</FormLabel>
-                  <MdCall />
-                </HStack>
-                <Input
-                  id="reservationUserPhone"
-                  name="reservationUserPhone"
-                  type="tel"
-                  {...formik.getFieldProps("reservationUserPhone")}
-                />
-                {phoneMessage()}
-              </FormControl>
-              <Button type="submit" colorScheme="#f4ce14" color="black" width="full" isDisabled={!(formik.isValid && formik.dirty)}>
-                {isLoading  ? "Loading..."  : "Make your reservation"}
-              </Button>
-{/*               <Box
-                as='button'
-                height='24px'
-                lineHeight='1.2'
-                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-                border='1px'
-                px='8px'
-                borderRadius='2px'
-                fontSize='14px'
-                fontWeight='semibold'
-                bg='#f5f6f7'
-                borderColor='#ccd0d5'
-                color='#4b4f56'
-                _hover={{ bg: '#ebedf0' }}
-                _active={{
-                  bg: '#dddfe2',
-                  transform: 'scale(0.98)',
-                  borderColor: '#bec3c9',
-                }}
-                _focus={{
-                  boxShadow:
-                    '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-                }}
-              >
-                Join Group
-              </Box>
- */}
-            </VStack>
-          </form>
-        </Box>
-      </VStack>
-    </FullScreenSection>
+    const styleInputBorderColor       =   (touched, error) => {
+      switch(checkInputStatus(touched, error)) {
+        case touchedInvalidInput:         return 'red.600';
+        case touchedValidInput:           return 'green.400';
+        default:                          return 'grey.200';
+      }
+    }
 
-{/*             <form>
-                <label for="res-date">Choose date</label>
-                <input type="date" id="res-date" />
-                <label for="res-time">Choose time</label>
-                <select id="res-time ">
-                    <option>17:00</option>
-                    <option>18:00</option>
-                    <option>19:00</option>
-                    <option>20:00</option>
-                    <option>21:00</option>
-                    <option>22:00</option>
-                </select>
-                <label for="guests">Number of guests</label>
-                <input type="number" placeholder="1" min="1" max="10" id="guests" />
-                <label for="occasion">Occasion</label>
-                <select id="occasion">
-                    <option>Birthday</option>
-                    <option>Anniversary</option>
-                </select>
-                <input type="submit" value="Make Your reservation" />
-            </form>
- */}
-        </>
-    );
+    const styleInputBorderWidth       =   (touched, error) => {
+      switch(checkInputStatus(touched, error)) {
+        case touchedInvalidInput:
+        case touchedValidInput:           return '.3vw';
+        default:                          return '.1vw';
+      }
+    }
+
+    const checkInputStatus            =   (touched, error) => {
+      switch(true) {
+        case touched == null:             return untouchedInput;
+        case error == null:               return touchedValidInput;
+        default:                          return touchedInvalidInput;
+      }
+    }
+
+    return (
+      <>
+        <FullScreenSection
+          backgroundColor="white"
+          py={16}
+          spacing={8}
+        >
+          <VStack w="60%" p={32} alignItems="flex-start">
+            <Heading as="h1" id="reservation-section" fontSize="2.5vw">
+              Reservation
+            </Heading>
+            <Heading as="h4" id="reservation-section" fontSize="1.25vw">
+              (all fields required)
+            </Heading>
+            <Box p={6} rounded="md" w="100%">
+              <form onSubmit={handleSubmit}>
+              <VStack spacing={4}>
+                  <FormControl isInvalid={touched.reservationDate && !!errors.reservationDate}>
+                    <Flex  align="center">
+                      <FormLabel htmlFor="reservationDate" style={{margin: '1vw 1vw 1vw 0vw'}}>Date</FormLabel>                  
+                      <MdDateRange />
+                    </Flex>
+                    <Input
+                      id="reservationDate"
+                      name="reservationDate"
+                      type="date"
+                      borderColor={styleInputBorderColor(touched.reservationDate, errors.reservationDate)}
+                      borderWidth={styleInputBorderWidth(touched.reservationDate, errors.reservationDate)}
+                      // onValueChange={itemValue => console.log(`Hiya, item value: ${itemValue}`)}
+                      {...getFieldProps("reservationDate")}
+                    />
+                    {dateMessage()}
+                  </FormControl>
+                  <FormControl isInvalid={touched.reservationTime && !!errors.reservationTime}>
+                    <Flex  align="center">
+                      <FormLabel htmlFor="reservationTime" style={{margin: '1vw 1vw 1vw 0vw'}}>Time</FormLabel>
+                      <MdAccessTime />
+                    </Flex>
+                    <Select
+                      id="reservationTime"
+                      name="reservationTime"
+                      borderColor={styleInputBorderColor(touched.reservationTime, errors.reservationTime)}
+                      borderWidth={styleInputBorderWidth(touched.reservationTime, errors.reservationTime)}
+                      {...getFieldProps("reservationTime")}
+                    >
+                      {showAvailableTimeSlots()}
+                    </Select>
+                    {timeMessage()}
+                  </FormControl>
+                  <FormControl isInvalid={touched.reservationNumGuests && !!errors.reservationNumGuests}>
+                    <Flex  align="center">
+                      <FormLabel htmlFor="reservationNumGuests" style={{margin: '1vw 1vw 1vw 0vw'}}>Number of guests</FormLabel>
+                      <MdPeople />
+                    </Flex>
+                    <Input
+                      id="reservationNumGuests"
+                      name="reservationNumGuests"
+                      type="number"
+                      borderColor={styleInputBorderColor(touched.reservationNumGuests, errors.reservationNumGuests)}
+                      borderWidth={styleInputBorderWidth(touched.reservationNumGuests, errors.reservationNumGuests)}
+                      {...getFieldProps("reservationNumGuests")}
+                    />
+                    {numGuestsMessage()}
+                  </FormControl>
+                  <FormControl isInvalid={touched.reservationOccasion && !!errors.reservationOccasion}>
+                    <Flex  align="center">
+                      <FormLabel htmlFor="reservationOccasion" style={{margin: '1vw 1vw 1vw 0vw'}}>Occasion</FormLabel>
+                      <MdCake />
+                    </Flex>
+                    <Select
+                      id="reservationOccasion"
+                      name="reservationOccasion"
+                      borderColor={styleInputBorderColor(touched.reservationOccasion, errors.reservationOccasion)}
+                      borderWidth={styleInputBorderWidth(touched.reservationOccasion, errors.reservationOccasion)}
+                      {...getFieldProps("reservationOccasion")}
+                    >
+                      <option hidden={true} key="placeholder" value="placeholder">Occasion?</option>
+                      <option value="birthday">Birthday</option>
+                      <option value="anniversary">Anniversary</option>
+                      <option value="hangout">Just hangin' out!</option>
+                    </Select>
+                    {occasionMessage()}
+                  </FormControl>
+                  <FormControl isInvalid={touched.reservationUserName && !!errors.reservationUserName}>
+                    <Flex  align="center">
+                      <FormLabel htmlFor="reservationUserName" style={{margin: '1vw 1vw 1vw 0vw'}}>User Name</FormLabel>
+                      <MdOutlineEmojiPeople />
+                    </Flex>
+                    <Input
+                      id="reservationUserName"
+                      name="reservationUserName"
+                      type="text"
+                      borderColor={styleInputBorderColor(touched.reservationUserName, errors.reservationUserName)}
+                      borderWidth={styleInputBorderWidth(touched.reservationUserName, errors.reservationUserName)}
+                      {...getFieldProps("reservationUserName")}
+                    />
+                    {nameMessage()}
+                  </FormControl>
+                  <FormControl isInvalid={touched.reservationUserMail && !!errors.reservationUserMail}>
+                    <Flex  align="center">
+                      <FormLabel htmlFor="reservationUserMail" style={{margin: '1vw 1vw 1vw 0vw'}}>User Mail</FormLabel>
+                      <MdEmail />
+                    </Flex>
+                    <Input
+                      id="reservationUserMail"
+                      name="reservationUserMail"
+                      type="email"
+                      borderColor={styleInputBorderColor(touched.reservationUserMail, errors.reservationUserMail)}
+                      borderWidth={styleInputBorderWidth(touched.reservationUserMail, errors.reservationUserMail)}
+                      {...getFieldProps("reservationUserMail")}
+                    />
+                    {mailMessage()}
+                  </FormControl>
+                  <FormControl isInvalid={touched.reservationUserPhone && !!errors.reservationUserPhone}>
+                    <Flex  align="center">
+                      <FormLabel htmlFor="reservationUserPhone" style={{margin: '1vw 1vw 1vw 0vw'}}>User Phone</FormLabel>
+                      <MdCall />
+                    </Flex>
+                    <Input
+                      id="reservationUserPhone"
+                      name="reservationUserPhone"
+                      type="tel"
+                      borderColor={styleInputBorderColor(touched.reservationUserPhone, errors.reservationUserPhone)}
+                      borderWidth={styleInputBorderWidth(touched.reservationUserPhone, errors.reservationUserPhone)}
+                      {...getFieldProps("reservationUserPhone")}
+                    />
+                    {phoneMessage()}
+                  </FormControl>
+                  <Button type="submit" colorScheme="#f4ce14" color="black" width="full" isDisabled={!(isValid && dirty)}>
+                    {isLoading  ? "Loading..."  : "Make your reservation"}
+                  </Button>
+                </VStack>
+              </form>
+            </Box>
+          </VStack>
+        </FullScreenSection>
+      </>
+  );
 }
 
 export default ReserveForm;
