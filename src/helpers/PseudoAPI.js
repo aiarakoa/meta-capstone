@@ -1,0 +1,111 @@
+const availableTimeSlots        =   {
+    '2024-04-01': [],
+    '2024-04-02': [],
+    '2024-04-03': [],
+    '2024-04-04': [],
+    '2024-04-05': [],
+    '2024-04-06': ['one00', 'one45'],
+    '2024-04-07': ['one45'],
+    '2024-04-08': ['eleven30', 'one45'],
+    '2024-04-09': [],
+    '2024-04-10': ['one45'],
+    '2024-04-11': ['eleven30', 'twelve15'],
+    '2024-04-12': [],
+    '2024-04-13': ['one45'],
+    '2024-04-14': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-15': ['one45'],
+    '2024-04-16': ['one00', 'one45'],
+    '2024-04-17': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-18': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-19': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-20': ['twelve15', 'one00'],
+    '2024-04-21': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-22': ['eleven30', 'one00', 'one45'],
+    '2024-04-23': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-24': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-25': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-26': ['eleven30', 'one00', 'one45'],
+    '2024-04-27': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-28': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-29': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-04-30': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-01': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-02': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-03': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-04': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-05': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-06': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-07': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-08': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-09': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-10': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-11': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-12': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-13': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-14': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-15': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-16': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-17': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-18': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-19': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-20': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-21': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-22': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-23': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-24': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-25': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-26': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-27': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-28': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-29': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-05-30': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-01': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-02': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-03': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-04': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-05': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-06': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-07': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-08': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-09': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-10': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-11': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-12': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-13': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-14': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-15': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-16': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-17': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-18': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-19': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-20': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-21': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-22': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-23': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-24': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-25': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-26': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-27': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-28': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-29': ['eleven30', 'twelve15', 'one00', 'one45'],
+    '2024-06-30': ['eleven30', 'twelve15', 'one00', 'one45'],
+};
+
+function fetchAPI(date) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() =>{
+            if(availableTimeSlots[date]){
+                resolve(availableTimeSlots[date])
+            }
+            else{
+                reject(new Error(`No available information for date: ${date}`));
+            }
+        } , 1000)
+    })
+}
+
+function submitAPI(formData) {
+
+}
+
+export {fetchAPI, submitAPI};

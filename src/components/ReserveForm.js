@@ -1,6 +1,6 @@
 import './ReserveForm.css';
-import React from "react";
-import { Formik, useFormikContext, Field, Form, useField } from "formik";
+import React, {useReducer} from "react";
+import { Formik, useFormikContext, useField } from "formik";
 import {
   Box,
   Button,
@@ -17,85 +17,15 @@ import {
 import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
+import {fetchAPI} from "../helpers/PseudoAPI";
 import FullScreenSection from "./FullScreenSection";
 import { IconContext } from "react-icons"
 import { MdEmail , MdCall, MdDateRange, MdAccessTime, MdOutlineEmojiPeople, MdPeople, MdCake } from "react-icons/md"
 import { IoCheckmarkCircle } from "react-icons/io5"
 
-function doNothing() {}
+// function doNothing() {}
 
-const showAvailableTimeSlots = () => {
-  return [
-    (<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>),
-    (<option key="eleven30" value="eleven30">11:30-12:15</option>),
-    (<option key="twelve15" value="twelve15">12:15-13:00</option>),
-    (<option key="one00" value="one00">13:00-13:45</option>),
-    (<option key="one45" value="one45">13:45-14:30</option>)
-  ]
-}
-
-const InputValueType              =   {untouchedInput: 0, touchedInvalidInput: 1, touchedInvalidInput: 2}
-
-const dateMessage                 =   (touched, errors) => {return helpMessage(touched.reservationDate, errors.reservationDate, 'Please select a date (required)')}
-
-const timeMessage                 =   (touched, errors) => {return helpMessage(touched.reservationTime, errors.reservationTime, 'Please select a time slot (required)')}
-
-const numGuestsMessage            =   (touched, errors) => {return helpMessage(touched.reservationNumGuests, errors.reservationNumGuests, 'Please enter how many guests are expected (required)')}
-
-const occasionMessage             =   (touched, errors) => {return helpMessage(touched.reservationOccasion, errors.reservationOccasion, 'Please indicate whether it is a special occasion (required)')}
-
-const nameMessage                 =   (touched, errors) => {return helpMessage(touched.reservationUserName, errors.reservationUserName, 'Please give a contact name (required)')}
-
-const mailMessage                 =   (touched, errors) => {return helpMessage(touched.reservationUserMail, errors.reservationUserMail, 'Please give an e-mail (required)')}
-
-const phoneMessage                =   (touched, errors) => {return helpMessage(touched.reservationUserPhone, errors.reservationUserPhone, 'Please give a contact number (required)')}
-
-const helpMessage = (touched, error, messageText) => {
-  switch(checkInputStatus(touched, error)) {
-    case InputValueType.touchedInvalidInput:         return (
-      <FormErrorMessage>
-        {error}
-      </FormErrorMessage>
-    );
-    case InputValueType.touchedValidInput:           return (
-      <FormHelperText>
-        <IconContext.Provider
-          value={{color: '#00cc00'}}>
-          <IoCheckmarkCircle />
-        </IconContext.Provider>
-      </FormHelperText>
-    );
-    default:                          return (
-      <FormHelperText>
-        {messageText}
-      </FormHelperText>
-    )
-  }
-}
-
-const styleInputBorderColor       =   (touched, error) => {
-  switch(checkInputStatus(touched, error)) {
-    case InputValueType.touchedInvalidInput:         return 'red.600';
-    case InputValueType.touchedValidInput:           return 'green.400';
-    default:                          return 'grey.200';
-  }
-}
-
-const styleInputBorderWidth       =   (touched, error) => {
-  switch(checkInputStatus(touched, error)) {
-    case InputValueType.touchedInvalidInput:
-    case InputValueType.touchedValidInput:           return '.3vw';
-    default:                          return '.1vw';
-  }
-}
-
-const checkInputStatus            =   (touched, error) => {
-  switch(true) {
-    case touched == null:             return InputValueType.untouchedInput;
-    case error == null:               return InputValueType.touchedValidInput;
-    default:                          return InputValueType.touchedInvalidInput;
-  }
-}
+const InputValueType              =   {untouchedInput: 0, touchedValidInput: 1, touchedInvalidInput: 2}
 
 function MyTimeSlotsField(props) {
   const {
@@ -104,9 +34,90 @@ function MyTimeSlotsField(props) {
   } = useFormikContext();
   const [field, meta, helpers] = useField(props);
 
+  const initialTimeSlots = {timeSlots: [
+    (<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>),
+    (<option key="eleven30" value="eleven30">11:30-12:15</option>),
+    (<option key="twelve15" value="twelve15">12:15-13:00</option>),
+    (<option key="one00" value="one00">13:00-13:45</option>),
+    (<option key="one45" value="one45">13:45-14:30</option>)
+  ]};
+
+  const timeSlotMessage = () => {
+    console.log(meta);
+    switch(inputStatusChecker()) {
+      case InputValueType.touchedInvalidInput:         return (
+        <FormErrorMessage>
+          {meta.error}
+        </FormErrorMessage>
+      );
+      case InputValueType.touchedValidInput:           return (
+        <FormHelperText>
+          <IconContext.Provider
+            value={{color: '#00cc00'}}>
+            <IoCheckmarkCircle />
+          </IconContext.Provider>
+        </FormHelperText>
+      );
+      default:                          return (
+        <FormHelperText>
+          {meta.value === 'fullybooked' ? `Sorry, we are full, please pick another day (required)`  : `Please select a time slot (required)`}
+        </FormHelperText>
+      )
+    }
+  }
+
+  const inputStatusChecker            =   () => {
+    switch(true) {
+      case !meta.touched:               return InputValueType.untouchedInput;
+      case meta.error == null:          return InputValueType.touchedValidInput;
+      default:                          return InputValueType.touchedInvalidInput;
+    }
+  }
+
+  const styleBorderColor       =   () => {
+    switch(inputStatusChecker()) {
+      case InputValueType.touchedInvalidInput:         return 'red.600';
+      case InputValueType.touchedValidInput:           return 'green.400';
+      default:                          return 'grey.200';
+    }
+  }
+  
+  const styleBorderWidth       =   () => {
+    switch(inputStatusChecker()) {
+      case InputValueType.touchedInvalidInput:
+      case InputValueType.touchedValidInput:           return '.2vw';
+      default:                          return '.1vw';
+    }
+  }
+
+  const timeReducer = (state, action) => {
+    switch(action.type) {
+      case 'someCase': 
+        let tempTimeSlots = initialTimeSlots.timeSlots.filter(timeSlot => action.availableTimeSlots.includes(timeSlot.key));
+        tempTimeSlots.length > 0
+          ? tempTimeSlots.unshift((<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>))
+          : tempTimeSlots.push((<option hidden={true} key="fullybooked" value="fullybooked">We are full :-(</option>));
+        return {...state, timeSlots: tempTimeSlots};
+      default: throw Error(`Unknown action: ${action.type}`);
+    }
+  }
+
+  const [state, dispatch] = useReducer(timeReducer, initialTimeSlots);
+
   React.useEffect(() => {
-    let isCurrent = true;
-    console.log(`Hiya effect in time! Date: ${reservationDate}`);
+    // let isCurrent = true;
+    console.log(`Checking available slots for date: ${reservationDate}`)
+    fetchAPI(reservationDate)
+    .then(response => dispatch({type: 'someCase', availableTimeSlots: response}))
+    .catch(err => {
+      console.warn(err);
+    });
+
+    helpers.setTouched(false).then(() => state.timeSlots.length > 2     ?   setFieldValue(props.name, 'placeholder')  : setFieldValue(props.name, 'fullybooked'));
+    // console.log(`Hiya effect in time! Date: ${reservationDate}`);
+    // console.log(`Input ${props.name} has value ${field.value}`);
+    // console.log(state.timeSlots);
+    // console.log(meta)
     // your business logic around when to fetch goes here.
     // if (textA.trim() !== '' && textB.trim() !== '') {
     //   fetchNewTextC(textA, textB).then((textC) => {
@@ -116,10 +127,8 @@ function MyTimeSlotsField(props) {
     //     }
     //   });
     // }
-    return () => {
-      isCurrent = false;
-    };
-  }, [reservationDate, setFieldValue, props.name]);
+    return () => {};
+  }, [reservationDate, setFieldValue, props.name, helpers, state.timeSlots.length]);
 
   return (
     <>
@@ -130,14 +139,14 @@ function MyTimeSlotsField(props) {
       <Select
         id={props.name}
         name={props.name}
-        borderColor={styleInputBorderColor(meta.touched, meta.error)}
-        borderWidth={styleInputBorderWidth(meta.touched, meta.error)}
+        borderColor={styleBorderColor(meta.touched, meta.error)}
+        borderWidth={styleBorderWidth(meta.touched, meta.error)}
         {...props}
         {...field}
       >
-        {showAvailableTimeSlots()}
+        {state.timeSlots}
       </Select>
-      {helpMessage(meta.touched, meta.error, 'Please select a time slot (required)')}
+      {timeSlotMessage()}
     </>
   );
 };
@@ -148,29 +157,21 @@ function ReserveForm() {
     const untouchedInput                =   0;
     const touchedValidInput             =   1;
     const touchedInvalidInput           =   2;
+    const validTimeSlotNames            =   ['eleven30', 'twelve15', 'one00', 'one45'];
     const vetInputValues                =   Yup.object({}).shape({
       reservationDate: Yup.string().required('Required'),
-      reservationTime: Yup.string().required('Required'),
+      reservationTime: Yup.string().oneOf(validTimeSlotNames, 'A time slot for your table is required').notOneOf(['fullybooked'], 'Please pick another date, sorry, we are full').required('Required'),
       reservationNumGuests: Yup.number().min(1,'At least 1 guest').max(10,'No more than 10 guests').required('Required'),
-      reservationOccasion: Yup.string().required('Required'),  
+      reservationOccasion: Yup.string().notOneOf(['placeholder'], 'Specifying an occasion is required').required('Required'),  
       reservationUserName: Yup.string().required('Required'),  
       reservationUserMail: Yup.string().email('Invalid email address').required('Required'),  
-      reservationUserPhone: Yup.string().required('Required'),  
+      reservationUserPhone: Yup.string().matches(
+        /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/g,
+              "Invalid phone number, must be +XX XXX-XXX-XXXX"
+            ).required('Required'),  
     });
 
-    const showAvailableTimeSlots = () => {
-      return [
-        (<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>),
-        (<option key="eleven30" value="eleven30">11:30-12:15</option>),
-        (<option key="twelve15" value="twelve15">12:15-13:00</option>),
-        (<option key="one00" value="one00">13:00-13:45</option>),
-        (<option key="one45" value="one45">13:45-14:30</option>)
-      ]
-    }
-
     const dateMessage                 =   (touched, errors) => {return helpMessage(touched.reservationDate, errors.reservationDate, 'Please select a date (required)')}
-
-    const timeMessage                 =   (touched, errors) => {return helpMessage(touched.reservationTime, errors.reservationTime, 'Please select a time slot (required)')}
 
     const numGuestsMessage            =   (touched, errors) => {return helpMessage(touched.reservationNumGuests, errors.reservationNumGuests, 'Please enter how many guests are expected (required)')}
 
@@ -216,7 +217,7 @@ function ReserveForm() {
     const styleInputBorderWidth       =   (touched, error) => {
       switch(checkInputStatus(touched, error)) {
         case touchedInvalidInput:
-        case touchedValidInput:           return '.3vw';
+        case touchedValidInput:           return '.2vw';
         default:                          return '.1vw';
       }
     }
@@ -235,7 +236,7 @@ function ReserveForm() {
           initialValues = {
             {
               reservationDate: '',
-              reservationTime: '',
+              reservationTime: 'placeholder',
               reservationNumGuests: '',
               reservationOccasion: '',
               reservationUserName: '',
@@ -310,6 +311,8 @@ function ReserveForm() {
                             id="reservationDate"
                             name="reservationDate"
                             type="date"
+                            min="2024-04-01"
+                            max="2024-06-30"
                             borderColor={styleInputBorderColor(touched.reservationDate, errors.reservationDate)}
                             borderWidth={styleInputBorderWidth(touched.reservationDate, errors.reservationDate)}
                             {...getFieldProps("reservationDate")}
