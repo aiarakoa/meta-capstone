@@ -1,10 +1,13 @@
 import './ReservePage.css';
 import ReserveMain from './ReserveMain';
+import {LittleLemonFormContextProvider} from '../context/LittleLemonFormContext';
 
 function ReservePage() {
   return (
     <>
-      <ReserveMain />
+      <LittleLemonFormContextProvider>
+        <ReserveMain />
+      </LittleLemonFormContextProvider>
     </>
   );
 }

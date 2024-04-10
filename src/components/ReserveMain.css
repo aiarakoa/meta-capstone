@@ -1,5 +1,8 @@
 .reserve-main {
     height: 88.775vh;
+    width: 60vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
     display: flex;
     flex-direction: column;
     background-color: white;

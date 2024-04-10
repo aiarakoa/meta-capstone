@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
-import {useAlertContext} from "../context/alertContext";
+import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";
 import {fetchAPI} from "../helpers/PseudoAPI";
 import FullScreenSection from "./FullScreenSection";
 import { IconContext } from "react-icons"
@@ -43,7 +43,6 @@ function MyTimeSlotsField(props) {
   ]};
 
   const timeSlotMessage = () => {
-    console.log(meta);
     switch(inputStatusChecker()) {
       case InputValueType.touchedInvalidInput:         return (
         <FormErrorMessage>
@@ -152,8 +151,8 @@ function MyTimeSlotsField(props) {
 };
 
 function ReserveForm() {
-    const {isLoading, response, submit} = useSubmit();
-    const {onOpen} = useAlertContext();
+    const {isLoading, submit} = useSubmit();
+    const {setShowForm, setReservationDetails} = useLittleLemonFormContext();
     const untouchedInput                =   0;
     const touchedValidInput             =   1;
     const touchedInvalidInput           =   2;
@@ -238,7 +237,7 @@ function ReserveForm() {
               reservationDate: '',
               reservationTime: 'placeholder',
               reservationNumGuests: '',
-              reservationOccasion: '',
+              reservationOccasion: 'placeholder',
               reservationUserName: '',
               reservationUserMail: '',
               reservationUserPhone: '',
@@ -248,22 +247,34 @@ function ReserveForm() {
 
           onSubmit = {
             (values, actions) => {
-              submit("/", {firstName: values.firstName});
-/* 
-              actions.resetForm(
-                {
-                  values: {
-                      reservationDate: '',
-                      reservationTime: 'placeholder',
-                      reservationNumGuests: '',
-                      reservationOccasion: 'placeholder',  
-                      reservationUserName: '',  
-                      reservationUserMail: '',  
-                      reservationUserPhone: '',  
-                  }
-                }
-              );
-*/
+              let bookingDetails = {
+                reservationDate: values.reservationDate,
+                reservationTime: values.reservationTime,
+                reservationNumGuests: values.reservationNumGuests,
+                reservationOccasion: values.reservationOccasion,
+                reservationUserName: values.reservationUserName,
+                reservationUserMail: values.reservationUserMail,
+                reservationUserPhone: values.reservationUserPhone,
+              };
+              submit("/", bookingDetails)
+                .then(() => {
+                  actions.resetForm(
+                    {
+                      values: {
+                          reservationDate: '',
+                          reservationTime: 'placeholder',
+                          reservationNumGuests: '',
+                          reservationOccasion: 'placeholder',  
+                          reservationUserName: '',  
+                          reservationUserMail: '',  
+                          reservationUserPhone: '',  
+                      }
+                    }
+                  );
+    
+                  setReservationDetails(bookingDetails);
+                  setShowForm(false);    
+                });
 /*               
               submit("/", {firstName: values.firstName});
               let [type, message]         =   destructureResponse(response);

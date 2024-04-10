@@ -1,0 +1,40 @@
+.reservation-details-table {
+    border-width: 0vw;
+    width: 60%;
+    flex-shrink: 0;
+    flex-basis: 50%;
+}
+
+.reservation-details-table td:nth-child(1) {
+    font-weight: bolder;
+}
+
+.reservation-details-table td:nth-child(1):not(:has(button)) {
+    margin-left: 1.75vw;
+}
+
+.reservation-details-table td:nth-child(2),
+.reservation-details-table td:has(button) {
+    text-align: center;
+}
+
+.reservation-details-table button {
+    width: 15vw;
+}
+
+.reservation-details-table button:disabled {
+    opacity: 0.4;
+}
+
+.reservation-summary-article {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.reservation-summary-article > h3,
+.reservation-summary-article > h5 {
+    text-align: center;
+}
