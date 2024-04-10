@@ -28,19 +28,15 @@ import { IoCheckmarkCircle } from "react-icons/io5"
 const InputValueType              =   {untouchedInput: 0, touchedValidInput: 1, touchedInvalidInput: 2}
 
 function MyTimeSlotsField(props) {
+  const {timeTags, timeTexts} = useLittleLemonFormContext();
+
   const {
     values: { reservationDate },
     setFieldValue,
   } = useFormikContext();
   const [field, meta, helpers] = useField(props);
 
-  const initialTimeSlots = {timeSlots: [
-    (<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>),
-    (<option key="eleven30" value="eleven30">11:30-12:15</option>),
-    (<option key="twelve15" value="twelve15">12:15-13:00</option>),
-    (<option key="one00" value="one00">13:00-13:45</option>),
-    (<option key="one45" value="one45">13:45-14:30</option>)
-  ]};
+  const initialTimeSlots = {timeSlots: timeTags.map((tag, index) => (<option hidden = {index === 0 ? true : false} key = {tag} value = {tag}>{timeTexts[tag]}</option>))};
 
   const timeSlotMessage = () => {
     switch(inputStatusChecker()) {
@@ -152,7 +148,7 @@ function MyTimeSlotsField(props) {
 
 function ReserveForm() {
     const {isLoading, submit} = useSubmit();
-    const {setShowForm, setReservationDetails} = useLittleLemonFormContext();
+    const {setShowForm, setReservationDetails, occasionTags, occasionTexts} = useLittleLemonFormContext();
     const untouchedInput                =   0;
     const touchedValidInput             =   1;
     const touchedInvalidInput           =   2;
@@ -275,24 +271,6 @@ function ReserveForm() {
                   setReservationDetails(bookingDetails);
                   setShowForm(false);    
                 });
-/*               
-              submit("/", {firstName: values.firstName});
-              let [type, message]         =   destructureResponse(response);
-              onOpen(type, message);
-              response.type === 'error'   ?   doNothing()                                                     :   actions.resetForm(
-                {
-                  values: {
-                      reservationDate: '',
-                      reservationTime: 'placeholder',
-                      reservationNumGuests: '',
-                      reservationOccasion: 'placeholder',  
-                      reservationUserName: '',  
-                      reservationUserMail: '',  
-                      reservationUserPhone: '',  
-                  }
-                }
-              );      
- */
             }
           }
         >
@@ -331,24 +309,8 @@ function ReserveForm() {
                           {dateMessage(touched, errors)}
                         </FormControl>
                         <FormControl isInvalid={touched.reservationTime && !!errors.reservationTime}>
-{/* 
-                          <Flex  align="center">
-                            <FormLabel htmlFor="reservationTime" style={{margin: '1vw 1vw 1vw 0vw'}}>Time</FormLabel>
-                            <MdAccessTime />
-                          </Flex>
-                          <Select
-                            id="reservationTime"
-                            name="reservationTime"
-                            borderColor={styleInputBorderColor(touched.reservationTime, errors.reservationTime)}
-                            borderWidth={styleInputBorderWidth(touched.reservationTime, errors.reservationTime)}
-                            {...getFieldProps("reservationTime")}
-                          >
-                            {showAvailableTimeSlots()}
-                          </Select>
-                          {timeMessage(touched, errors)}
-*/}
-                            <MyTimeSlotsField name="reservationTime" />
-                          </FormControl>
+                          <MyTimeSlotsField name="reservationTime" />
+                        </FormControl>
                         <FormControl isInvalid={touched.reservationNumGuests && !!errors.reservationNumGuests}>
                           <Flex  align="center">
                             <FormLabel htmlFor="reservationNumGuests" style={{margin: '1vw 1vw 1vw 0vw'}}>Number of guests</FormLabel>
@@ -376,10 +338,7 @@ function ReserveForm() {
                             borderWidth={styleInputBorderWidth(touched.reservationOccasion, errors.reservationOccasion)}
                             {...getFieldProps("reservationOccasion")}
                           >
-                            <option hidden={true} key="placeholder" value="placeholder">Occasion?</option>
-                            <option value="birthday">Birthday</option>
-                            <option value="anniversary">Anniversary</option>
-                            <option value="hangout">Just hangin' out!</option>
+                            {occasionTags.map((tag, index) => (<option hidden = {index === 0 ? true : false} key = {tag} value = {tag}>{occasionTexts[tag]}</option>))};
                           </Select>
                           {occasionMessage(touched, errors)}
                         </FormControl>

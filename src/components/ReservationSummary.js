@@ -2,8 +2,8 @@ import './ReservationSummary.css';
 import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";
 
 function ReservationSummary() {
-    const {setShowForm, reservationDetails}         =   useLittleLemonFormContext();
-    const goToReservationForm                       =   () => {setShowForm(true);}
+    const {setShowForm, reservationDetails, timeTexts, occasionTexts}   =   useLittleLemonFormContext();
+    const goToReservationForm                                           =   () => {setShowForm(true);}
     return (
         <>
             <article className = "reservation-summary-article">
@@ -28,7 +28,7 @@ function ReservationSummary() {
                                 Time:
                             </td>
                             <td>
-                                {reservationDetails.reservationTime}
+                                {timeTexts[reservationDetails.reservationTime]}
                             </td>
                         </tr>
                         <tr>
@@ -44,7 +44,7 @@ function ReservationSummary() {
                                 Occasion:
                             </td>
                             <td>
-                                {reservationDetails.reservationOccasion}
+                                {occasionTexts[reservationDetails.reservationOccasion]}
                             </td>
                         </tr>
                         <tr>
