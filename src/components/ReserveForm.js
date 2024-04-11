@@ -1,150 +1,13 @@
 import './ReserveForm.css';
-import React, {useReducer} from "react";
-import { Formik, useFormikContext, useField } from "formik";
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  Input,
-  Select,
-  VStack,
-} from "@chakra-ui/react";
+import React from "react";
+import { Formik } from "formik";
 import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
 import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";
-import {fetchAPI} from "../helpers/PseudoAPI";
-import FullScreenSection from "./FullScreenSection";
 import { IconContext } from "react-icons"
-import { MdEmail , MdCall, MdDateRange, MdAccessTime, MdOutlineEmojiPeople, MdPeople, MdCake } from "react-icons/md"
+import { MdEmail , MdCall, MdDateRange, MdOutlineEmojiPeople, MdPeople, MdCake } from "react-icons/md"
 import { IoCheckmarkCircle } from "react-icons/io5"
-
-// function doNothing() {}
-
-const InputValueType              =   {untouchedInput: 0, touchedValidInput: 1, touchedInvalidInput: 2}
-
-function MyTimeSlotsField(props) {
-  const {timeTags, timeTexts} = useLittleLemonFormContext();
-
-  const {
-    values: { reservationDate },
-    setFieldValue,
-  } = useFormikContext();
-  const [field, meta, helpers] = useField(props);
-
-  const initialTimeSlots = {timeSlots: timeTags.map((tag, index) => (<option hidden = {index === 0 ? true : false} key = {tag} value = {tag}>{timeTexts[tag]}</option>))};
-
-  const timeSlotMessage = () => {
-    switch(inputStatusChecker()) {
-      case InputValueType.touchedInvalidInput:         return (
-        <FormErrorMessage>
-          {meta.error}
-        </FormErrorMessage>
-      );
-      case InputValueType.touchedValidInput:           return (
-        <FormHelperText>
-          <IconContext.Provider
-            value={{color: '#00cc00'}}>
-            <IoCheckmarkCircle />
-          </IconContext.Provider>
-        </FormHelperText>
-      );
-      default:                          return (
-        <FormHelperText>
-          {meta.value === 'fullybooked' ? `Sorry, we are full, please pick another day (required)`  : `Please select a time slot (required)`}
-        </FormHelperText>
-      )
-    }
-  }
-
-  const inputStatusChecker            =   () => {
-    switch(true) {
-      case !meta.touched:               return InputValueType.untouchedInput;
-      case meta.error == null:          return InputValueType.touchedValidInput;
-      default:                          return InputValueType.touchedInvalidInput;
-    }
-  }
-
-  const styleBorderColor       =   () => {
-    switch(inputStatusChecker()) {
-      case InputValueType.touchedInvalidInput:         return 'red.600';
-      case InputValueType.touchedValidInput:           return 'green.400';
-      default:                          return 'grey.200';
-    }
-  }
-  
-  const styleBorderWidth       =   () => {
-    switch(inputStatusChecker()) {
-      case InputValueType.touchedInvalidInput:
-      case InputValueType.touchedValidInput:           return '.2vw';
-      default:                          return '.1vw';
-    }
-  }
-
-  const timeReducer = (state, action) => {
-    switch(action.type) {
-      case 'someCase': 
-        let tempTimeSlots = initialTimeSlots.timeSlots.filter(timeSlot => action.availableTimeSlots.includes(timeSlot.key));
-        tempTimeSlots.length > 0
-          ? tempTimeSlots.unshift((<option hidden={true} key="placeholder" value="placeholder">Pick a time slot</option>))
-          : tempTimeSlots.push((<option hidden={true} key="fullybooked" value="fullybooked">We are full :-(</option>));
-        return {...state, timeSlots: tempTimeSlots};
-      default: throw Error(`Unknown action: ${action.type}`);
-    }
-  }
-
-  const [state, dispatch] = useReducer(timeReducer, initialTimeSlots);
-
-  React.useEffect(() => {
-    // let isCurrent = true;
-    console.log(`Checking available slots for date: ${reservationDate}`)
-    fetchAPI(reservationDate)
-    .then(response => dispatch({type: 'someCase', availableTimeSlots: response}))
-    .catch(err => {
-      console.warn(err);
-    });
-
-    helpers.setTouched(false).then(() => state.timeSlots.length > 2     ?   setFieldValue(props.name, 'placeholder')  : setFieldValue(props.name, 'fullybooked'));
-    // console.log(`Hiya effect in time! Date: ${reservationDate}`);
-    // console.log(`Input ${props.name} has value ${field.value}`);
-    // console.log(state.timeSlots);
-    // console.log(meta)
-    // your business logic around when to fetch goes here.
-    // if (textA.trim() !== '' && textB.trim() !== '') {
-    //   fetchNewTextC(textA, textB).then((textC) => {
-    //     if (!!isCurrent) {
-    //       // prevent setting old values
-    //       setFieldValue(props.name, textC);
-    //     }
-    //   });
-    // }
-    return () => {};
-  }, [reservationDate, setFieldValue, props.name, helpers, state.timeSlots.length]);
-
-  return (
-    <>
-      <Flex  align="center">
-        <FormLabel htmlFor={props.name} style={{margin: '1vw 1vw 1vw 0vw'}}>Time</FormLabel>
-        <MdAccessTime />
-      </Flex>
-      <Select
-        id={props.name}
-        name={props.name}
-        borderColor={styleBorderColor(meta.touched, meta.error)}
-        borderWidth={styleBorderWidth(meta.touched, meta.error)}
-        {...props}
-        {...field}
-      >
-        {state.timeSlots}
-      </Select>
-      {timeSlotMessage()}
-    </>
-  );
-};
+import TimeSlotsInput from "./TimeSlotsInput"
 
 function ReserveForm() {
     const {isLoading, submit} = useSubmit();
@@ -181,22 +44,22 @@ function ReserveForm() {
     const helpMessage = (touched, error, messageText) => {
       switch(checkInputStatus(touched, error)) {
         case touchedInvalidInput:         return (
-          <FormErrorMessage>
+          <p>
             {error}
-          </FormErrorMessage>
+          </p>
         );
         case touchedValidInput:           return (
-          <FormHelperText>
+          <figure>
             <IconContext.Provider
               value={{color: '#00cc00'}}>
               <IoCheckmarkCircle />
             </IconContext.Provider>
-          </FormHelperText>
+          </figure>
         );
         default:                          return (
-          <FormHelperText>
+          <p>
             {messageText}
-          </FormHelperText>
+          </p>
         )
       }
     }
@@ -276,125 +139,107 @@ function ReserveForm() {
         >
           {
             ({touched, errors, handleSubmit, getFieldProps, dirty, isValid}) => (
-              <FullScreenSection
-              backgroundColor="white"
-              py={16}
-              spacing={8}
-              >
-                <VStack w="60%" p={32} alignItems="flex-start">
-                  <Heading as="h1" id="reservation-section" fontSize="2.5vw">
-                    Reservation
-                  </Heading>
-                  <Heading as="h4" id="reservation-section" fontSize="1.25vw">
-                    (all fields required)
-                  </Heading>
-                  <Box p={6} rounded="md" w="100%">
-                    <form onSubmit={handleSubmit}>
-                    <VStack spacing={4}>
-                        <FormControl isInvalid={touched.reservationDate && !!errors.reservationDate}>
-                          <Flex  align="center">
-                            <FormLabel htmlFor="reservationDate" style={{margin: '1vw 1vw 1vw 0vw'}}>Date</FormLabel>                  
-                            <MdDateRange />
-                          </Flex>
-                          <Input
-                            id="reservationDate"
-                            name="reservationDate"
-                            type="date"
-                            min="2024-04-01"
-                            max="2024-06-30"
-                            borderColor={styleInputBorderColor(touched.reservationDate, errors.reservationDate)}
-                            borderWidth={styleInputBorderWidth(touched.reservationDate, errors.reservationDate)}
-                            {...getFieldProps("reservationDate")}
-                          />
-                          {dateMessage(touched, errors)}
-                        </FormControl>
-                        <FormControl isInvalid={touched.reservationTime && !!errors.reservationTime}>
-                          <MyTimeSlotsField name="reservationTime" />
-                        </FormControl>
-                        <FormControl isInvalid={touched.reservationNumGuests && !!errors.reservationNumGuests}>
-                          <Flex  align="center">
-                            <FormLabel htmlFor="reservationNumGuests" style={{margin: '1vw 1vw 1vw 0vw'}}>Number of guests</FormLabel>
-                            <MdPeople />
-                          </Flex>
-                          <Input
-                            id="reservationNumGuests"
-                            name="reservationNumGuests"
-                            type="number"
-                            borderColor={styleInputBorderColor(touched.reservationNumGuests, errors.reservationNumGuests)}
-                            borderWidth={styleInputBorderWidth(touched.reservationNumGuests, errors.reservationNumGuests)}
-                            {...getFieldProps("reservationNumGuests")}
-                          />
-                          {numGuestsMessage(touched, errors)}
-                        </FormControl>
-                        <FormControl isInvalid={touched.reservationOccasion && !!errors.reservationOccasion}>
-                          <Flex  align="center">
-                            <FormLabel htmlFor="reservationOccasion" style={{margin: '1vw 1vw 1vw 0vw'}}>Occasion</FormLabel>
-                            <MdCake />
-                          </Flex>
-                          <Select
-                            id="reservationOccasion"
-                            name="reservationOccasion"
-                            borderColor={styleInputBorderColor(touched.reservationOccasion, errors.reservationOccasion)}
-                            borderWidth={styleInputBorderWidth(touched.reservationOccasion, errors.reservationOccasion)}
-                            {...getFieldProps("reservationOccasion")}
-                          >
-                            {occasionTags.map((tag, index) => (<option hidden = {index === 0 ? true : false} key = {tag} value = {tag}>{occasionTexts[tag]}</option>))};
-                          </Select>
-                          {occasionMessage(touched, errors)}
-                        </FormControl>
-                        <FormControl isInvalid={touched.reservationUserName && !!errors.reservationUserName}>
-                          <Flex  align="center">
-                            <FormLabel htmlFor="reservationUserName" style={{margin: '1vw 1vw 1vw 0vw'}}>User Name</FormLabel>
-                            <MdOutlineEmojiPeople />
-                          </Flex>
-                          <Input
-                            id="reservationUserName"
-                            name="reservationUserName"
-                            type="text"
-                            borderColor={styleInputBorderColor(touched.reservationUserName, errors.reservationUserName)}
-                            borderWidth={styleInputBorderWidth(touched.reservationUserName, errors.reservationUserName)}
-                            {...getFieldProps("reservationUserName")}
-                          />
-                          {nameMessage(touched, errors)}
-                        </FormControl>
-                        <FormControl isInvalid={touched.reservationUserMail && !!errors.reservationUserMail}>
-                          <Flex  align="center">
-                            <FormLabel htmlFor="reservationUserMail" style={{margin: '1vw 1vw 1vw 0vw'}}>User Mail</FormLabel>
-                            <MdEmail />
-                          </Flex>
-                          <Input
-                            id="reservationUserMail"
-                            name="reservationUserMail"
-                            type="email"
-                            borderColor={styleInputBorderColor(touched.reservationUserMail, errors.reservationUserMail)}
-                            borderWidth={styleInputBorderWidth(touched.reservationUserMail, errors.reservationUserMail)}
-                            {...getFieldProps("reservationUserMail")}
-                          />
-                          {mailMessage(touched, errors)}
-                        </FormControl>
-                        <FormControl isInvalid={touched.reservationUserPhone && !!errors.reservationUserPhone}>
-                          <Flex  align="center">
-                            <FormLabel htmlFor="reservationUserPhone" style={{margin: '1vw 1vw 1vw 0vw'}}>User Phone</FormLabel>
-                            <MdCall />
-                          </Flex>
-                          <Input
-                            id="reservationUserPhone"
-                            name="reservationUserPhone"
-                            type="tel"
-                            borderColor={styleInputBorderColor(touched.reservationUserPhone, errors.reservationUserPhone)}
-                            borderWidth={styleInputBorderWidth(touched.reservationUserPhone, errors.reservationUserPhone)}
-                            {...getFieldProps("reservationUserPhone")}
-                          />
-                          {phoneMessage(touched, errors)}
-                        </FormControl>
-                        <Button type="submit" colorScheme="#f4ce14" color="black" width="full" isDisabled={!(isValid && dirty)}>
-                          {isLoading  ? "Loading..."  : "Make your reservation"}
-                        </Button>
-                      </VStack>
-                    </form>
-                  </Box>
-                </VStack>
-              </FullScreenSection>
+              <form onSubmit={handleSubmit}>
+                <h1>
+                  Reservation
+                </h1>
+                <h4>
+                  (all fields required)
+                </h4>
+                <section>
+                  <h3>
+                    Table details
+                  </h3>
+                  <p>
+                    <label htmlFor = "reservationDate">Date <MdDateRange /></label>
+                    <input
+                      id="reservationDate"
+                      name="reservationDate"
+                      type="date"
+                      min="2024-04-01"
+                      max="2024-06-30"
+                      borderColor={styleInputBorderColor(touched.reservationDate, errors.reservationDate)}
+                      borderWidth={styleInputBorderWidth(touched.reservationDate, errors.reservationDate)}
+                      {...getFieldProps("reservationDate")}
+                    />
+                    {dateMessage(touched, errors)}
+                  </p>
+                  <p>
+                    <TimeSlotsInput name="reservationTime" />
+                  </p>
+                  <p>
+                    <label htmlFor = "reservationNumGuests">Number of guests <MdPeople /></label>
+                    <input
+                      id="reservationNumGuests"
+                      name="reservationNumGuests"
+                      type="number"
+                      borderColor={styleInputBorderColor(touched.reservationNumGuests, errors.reservationNumGuests)}
+                      borderWidth={styleInputBorderWidth(touched.reservationNumGuests, errors.reservationNumGuests)}
+                      {...getFieldProps("reservationNumGuests")}
+                    />
+                    {numGuestsMessage(touched, errors)}                    
+                  </p>
+                  <p>
+                    <label htmlFor = "reservationOccasion">Occasion <MdCake /></label>
+                    <select
+                      id="reservationOccasion"
+                      name="reservationOccasion"
+                      borderColor={styleInputBorderColor(touched.reservationOccasion, errors.reservationOccasion)}
+                      borderWidth={styleInputBorderWidth(touched.reservationOccasion, errors.reservationOccasion)}
+                      {...getFieldProps("reservationOccasion")}
+                    >
+                      {occasionTags.map((tag, index) => (<option hidden = {index === 0 ? true : false} key = {tag} value = {tag}>{occasionTexts[tag]}</option>))};
+                    </select>
+                    {occasionMessage(touched, errors)}
+                  </p>
+                </section>
+                <section>
+                  <h3>
+                    User details
+                  </h3>
+                  <p>
+                    <label htmlFor = "reservationUserName">Name <MdOutlineEmojiPeople /></label>
+                    <input
+                      id="reservationUserName"
+                      name="reservationUserName"
+                      type="text"
+                      borderColor={styleInputBorderColor(touched.reservationUserName, errors.reservationUserName)}
+                      borderWidth={styleInputBorderWidth(touched.reservationUserName, errors.reservationUserName)}
+                      {...getFieldProps("reservationUserName")}
+                    />
+                    {nameMessage(touched, errors)}
+                  </p>
+                  <p>
+                    <label htmlFor = "reservationUserMail">E-mail <MdEmail /></label>
+                    <input
+                      id="reservationUserMail"
+                      name="reservationUserMail"
+                      type="email"
+                      borderColor={styleInputBorderColor(touched.reservationUserMail, errors.reservationUserMail)}
+                      borderWidth={styleInputBorderWidth(touched.reservationUserMail, errors.reservationUserMail)}
+                      {...getFieldProps("reservationUserMail")}
+                    />
+                    {mailMessage(touched, errors)}
+                  </p>
+                  <p>
+                    <label htmlFor = "reservationUserPhone">Phone <MdCall /></label>
+                    <input
+                      id="reservationUserPhone"
+                      name="reservationUserPhone"
+                      type="tel"
+                      borderColor={styleInputBorderColor(touched.reservationUserPhone, errors.reservationUserPhone)}
+                      borderWidth={styleInputBorderWidth(touched.reservationUserPhone, errors.reservationUserPhone)}
+                      {...getFieldProps("reservationUserPhone")}
+                    />
+                    {phoneMessage(touched, errors)}
+                  </p>
+                </section>
+                <section>
+                  <p>
+                    <input type="submit" disabled={!(isValid && dirty)} value = {isLoading  ? "Loading..."  : "Make your reservation"} />
+                  </p>
+                </section>
+              </form>
             )
           }
         </Formik>
