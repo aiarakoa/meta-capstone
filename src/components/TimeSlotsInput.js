@@ -1,13 +1,8 @@
-import './TimeSlotsInput.css';
 import React, {useReducer} from "react";
 import { useFormikContext, useField } from "formik";
 import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";
 import {fetchAPI} from "../helpers/PseudoAPI";
-import { IconContext } from "react-icons"
-import { MdAccessTime } from "react-icons/md"
-import { IoCheckmarkCircle } from "react-icons/io5"
-
-const InputValueType              =   {untouchedInput: 0, touchedValidInput: 1, touchedInvalidInput: 2}
+import BaseSelect from "./BaseSelect";
 
 function TimeSlotsInput(props) {
   const {timeTags, timeTexts} = useLittleLemonFormContext();
@@ -20,44 +15,8 @@ function TimeSlotsInput(props) {
 
   const initialTimeSlots = {timeSlots: timeTags.map((tag, index) => (<option hidden = {index === 0 ? true : false} key = {tag} value = {tag}>{timeTexts[tag]}</option>))};
 
-  const timeSlotMessage = () => {
-    switch(inputStatusChecker()) {
-      case InputValueType.touchedInvalidInput:         return (
-        <p>
-          {meta.error}
-        </p>
-      );
-      case InputValueType.touchedValidInput:           return (
-        <figure>
-          <IconContext.Provider
-            value={{color: '#00cc00'}}>
-            <IoCheckmarkCircle />
-          </IconContext.Provider>
-        </figure>
-      );
-      default:                          return (
-        <p>
-          {meta.value === 'fullybooked' ? `Sorry, we are full, please pick another day (required)`  : `Please select a time slot (required)`}
-        </p>
-      )
-    }
-  }
+  const getDefaultMessage = () => {return meta.value === 'fullybooked' ? `Sorry, we are full, please pick another day (required)`  : `Please select a time slot (required)`}
 
-  const inputStatusChecker            =   () => {
-    switch(true) {
-      case !meta.touched:               return InputValueType.untouchedInput;
-      case meta.error == null:          return InputValueType.touchedValidInput;
-      default:                          return InputValueType.touchedInvalidInput;
-    }
-  }
-
-  const getStyle       =   () => {
-    switch(inputStatusChecker()) {
-      case InputValueType.touchedInvalidInput:          return 'invalid';
-      case InputValueType.touchedValidInput:            return 'valid';
-      default:                                          return 'untouched';
-    }
-  }
 
   const timeReducer = (state, action) => {
     switch(action.type) {
@@ -87,19 +46,7 @@ function TimeSlotsInput(props) {
 
   return (
     <>
-      <p>
-        <label htmlFor = {props.name}>Time <MdAccessTime /></label>
-        <select
-          id={props.name}
-          name={props.name}
-          className={getStyle()}
-          {...props}
-          {...field}
-        >
-          {state.timeSlots}
-        </select>
-      </p>
-      {timeSlotMessage()}
+      <BaseSelect name = {props.name} labelText = {"Time"} defaultMessage = {getDefaultMessage()} options = {state.timeSlots} tags = {timeTags} texts = {timeTexts} extra = {{...field}}/>
     </>
   );
 };

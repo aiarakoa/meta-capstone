@@ -92,16 +92,16 @@ function ReserveForm() {
                     Table details
                   </h3>
                   <article>
-                    <DateInput name="reservationDate" touched = {touched.reservationDate} error = {errors.reservationDate} extra = {getFieldProps("reservationDate")} />
+                    <DateInput name="reservationDate" />
                   </article>
                   <article>
                     <TimeSlotsInput name="reservationTime" />
                   </article>
                   <article>
-                    <NumGuestsInput name="reservationNumGuests" touched = {touched.reservationNumGuests} error = {errors.reservationNumGuests} extra = {getFieldProps("reservationNumGuests")} />
-                  </article>
+                    <NumGuestsInput name="reservationNumGuests" />
+                    </article>
                   <article>
-                    <OccasionsInput name="reservationOccasion" touched = {touched.reservationOccasion} error = {errors.reservationOccasion} extra = {getFieldProps("reservationOccasion")} />
+                    <OccasionsInput name="reservationOccasion" />
                   </article>
                 </section>
                 <section>
@@ -109,13 +109,13 @@ function ReserveForm() {
                     User details
                   </h3>
                   <article>
-                    <UserNameInput name="reservationUserName" touched = {touched.reservationUserName} error = {errors.reservationUserName} extra = {getFieldProps("reservationUserName")} />
+                    <UserNameInput name="reservationUserName" />
                   </article>
                   <article>
-                    <UserMailInput name="reservationUserMail" touched = {touched.reservationUserMail} error = {errors.reservationUserMail} extra = {getFieldProps("reservationUserMail")} />
+                    <UserMailInput name="reservationUserMail" />
                   </article>
                   <article>
-                    <UserPhoneInput name="reservationUserPhone" touched = {touched.reservationUserPhone} error = {errors.reservationUserPhone} extra = {getFieldProps("reservationUserPhone")} />
+                    <UserPhoneInput name="reservationUserPhone" />
                   </article>
                 </section>
                 <section>
