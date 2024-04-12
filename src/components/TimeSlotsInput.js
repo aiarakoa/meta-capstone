@@ -1,4 +1,4 @@
-import './ReserveForm.css';
+import './TimeSlotsInput.css';
 import React, {useReducer} from "react";
 import { useFormikContext, useField } from "formik";
 import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";
@@ -51,19 +51,11 @@ function TimeSlotsInput(props) {
     }
   }
 
-  const styleBorderColor       =   () => {
+  const getStyle       =   () => {
     switch(inputStatusChecker()) {
-      case InputValueType.touchedInvalidInput:         return 'red.600';
-      case InputValueType.touchedValidInput:           return 'green.400';
-      default:                          return 'grey.200';
-    }
-  }
-  
-  const styleBorderWidth       =   () => {
-    switch(inputStatusChecker()) {
-      case InputValueType.touchedInvalidInput:
-      case InputValueType.touchedValidInput:           return '.2vw';
-      default:                          return '.1vw';
+      case InputValueType.touchedInvalidInput:          return 'invalid';
+      case InputValueType.touchedValidInput:            return 'valid';
+      default:                                          return 'untouched';
     }
   }
 
@@ -95,17 +87,18 @@ function TimeSlotsInput(props) {
 
   return (
     <>
-      <label htmlFor = {props.name}>Time <MdAccessTime /></label>
-      <select
-        id={props.name}
-        name={props.name}
-        borderColor={styleBorderColor(meta.touched, meta.error)}
-        borderWidth={styleBorderWidth(meta.touched, meta.error)}
-        {...props}
-        {...field}
-      >
-        {state.timeSlots}
-      </select>
+      <p>
+        <label htmlFor = {props.name}>Time <MdAccessTime /></label>
+        <select
+          id={props.name}
+          name={props.name}
+          className={getStyle()}
+          {...props}
+          {...field}
+        >
+          {state.timeSlots}
+        </select>
+      </p>
       {timeSlotMessage()}
     </>
   );

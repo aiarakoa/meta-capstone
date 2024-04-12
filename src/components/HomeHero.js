@@ -1,7 +1,10 @@
 import heroImage from '../hero-image.jpg';
+import {useNavigate} from 'react-router-dom';
 
 function HomeHero() {
-    const heroImageAlt                        = "Hungry yet?";
+    const heroImageAlt                          =   "Hungry yet?";
+    const goTo                                  =   useNavigate();
+    const goReserve                             =   () => goTo('/reserve');
     return (
         <>
             <section            className = "home-hero">
@@ -15,7 +18,7 @@ function HomeHero() {
                     <p>
                         We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
                     </p>
-                    <button>
+                    <button onClick = {goReserve}>
                         Reserve a table
                     </button>
                 </article>

@@ -1,7 +1,7 @@
 .invalid {
     border-width: .2vw;
     border-color: red;
-    background-color: #ffbaba;
+    background-color: #ffeded;
 }
 
 .valid {
@@ -12,8 +12,4 @@
 .untouched {
     border-width: .1vw;
     border-color: gray;
-}
-
-select {
-    background-color: white;
 }

@@ -7,7 +7,7 @@ function HomeHighlights() {
                 <h3>
                     This Week's Specials!
                 </h3>
-                <button>
+                <button disabled = {true}>
                     Order online!
                 </button>
                 <SpecialHighlight specialName = 'Greek salad' />

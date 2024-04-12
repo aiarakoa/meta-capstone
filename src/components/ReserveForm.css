@@ -1,12 +1,7 @@
 form {
-    width: 30%;
-    margin-left: 35%;
-    margin-right: 35%;
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    height: 67%;
-    margin-top: 11%;
-    margin-bottom: 22%;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 
