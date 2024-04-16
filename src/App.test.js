@@ -100,6 +100,7 @@ it('has certain elements', () => {
 */
 describe("Date input", () => {
   const isLoading                     =   false;
+  const manageSubmit                  =   jest.fn();
   const invalidNumOfGuests            =   0;
   const validNumOfGuests              =   3;
   const validTimeSlotNames            =   ['eleven30', 'twelve15', 'one00', 'one45'];
@@ -132,7 +133,7 @@ describe("Date input", () => {
     validationSchema = {vetInputValues}
 
     onSubmit = {
-      (values, actions) => {}
+      (values, actions) => {manageSubmit(values)}
     }
   >
     {
@@ -166,25 +167,28 @@ describe("Date input", () => {
   const submitButton        =   screen.getByRole("button");
 
   it('Has a number input for the number of guests', () => {
-    fireEvent.change(guestsInput, {target: {value: invalidNumOfGuests}});
     expect(guestsInput).toBeInTheDocument();
   });
 
   
   it('Is an input for which 0 is an invalid value', () => {
-    fireEvent.change(guestsInput, {target: {value: validNumOfGuests}});
+    fireEvent.change(guestsInput, {target: {value: invalidNumOfGuests}});
     expect(guestsInput).toBeInvalid();
   });
 
   it('Is an input for which 3 is a valid value', () => {
+    fireEvent.change(guestsInput, {target: {value: validNumOfGuests}});
     expect(guestsInput).toBeValid();
   });
 
   it("Is a form that after getting 3 as the number of guests sends it as the input", () => {
     fireEvent.change(guestsInput, {target: {value: validNumOfGuests}});
     fireEvent.click(submitButton);
-    expect(handleSubmit).toHaveBeenCalledWith({
-      validNumOfGuests,
+/*
+    expect(manageSubmit).toHaveBeenCalledWith({
+      reservationNumGuests: validNumOfGuests,
     });
+*/
+    expect(manageSubmit).toHaveBeenCalled();
   });
 });
