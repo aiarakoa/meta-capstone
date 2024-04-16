@@ -99,7 +99,7 @@ function ReserveForm() {
                   </article>
                   <article>
                     <NumGuestsInput name="reservationNumGuests" />
-                    </article>
+                  </article>
                   <article>
                     <OccasionsInput name="reservationOccasion" />
                   </article>
