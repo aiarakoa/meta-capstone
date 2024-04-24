@@ -10,4 +10,5 @@ export default {
     testEnvironment: "jsdom",
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     coverageDirectory: '../../coverage/libs/react-b',
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   };
