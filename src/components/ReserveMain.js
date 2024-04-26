@@ -7,7 +7,7 @@ function ReserveMain() {
   const {showForm}      = useLittleLemonFormContext();
   return (
     <>
-        <main className = "reserve-main">
+        <main id = "main" className = "reserve-main">
           {showForm   ?   <ReserveForm />   :   <ReservationSummary />}
         </main>
     </>

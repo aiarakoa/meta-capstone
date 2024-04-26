@@ -3,7 +3,7 @@ import './AboutMain.css';
 function AboutMain() {
   return (
     <>
-      <main className = "about-main">
+      <main id = "main" className = "about-main">
         <figure>
             <figcaption>
                 Soon...

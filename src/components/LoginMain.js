@@ -3,7 +3,7 @@ import './LoginMain.css';
 function LoginMain() {
   return (
     <>
-      <main className = "login-main">
+      <main id = "main" className = "login-main">
         <figure>
             <figcaption>
                 Soon...

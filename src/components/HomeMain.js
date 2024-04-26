@@ -7,7 +7,7 @@ import HomeAbout from './HomeAbout';
 function HomeMain() {
     return (
         <>
-            <main className = "home-main">
+            <main id = "main" className = "home-main">
                 <HomeHero />
                 <HomeHighlights />
                 <HomeTestimonials />

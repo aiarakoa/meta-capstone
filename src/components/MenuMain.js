@@ -3,7 +3,7 @@ import './MenuMain.css';
 function MenuMain() {
   return (
     <>
-      <main className = "menu-main">
+      <main id = "main" className = "menu-main">
         <figure>
             <figcaption>
                 Soon...

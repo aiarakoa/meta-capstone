@@ -3,7 +3,7 @@ import './OrderMain.css';
 function OrderMain() {
   return (
     <>
-      <main className = "order-main">
+      <main id = "main" className = "order-main">
         <figure>
             <figcaption>
                 Soon...
