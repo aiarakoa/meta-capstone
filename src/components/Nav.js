@@ -3,7 +3,7 @@ import logo from '../logo.png';
 import LemonLink from './LemonLink';
 
 function Nav() {
-  const logoAlt             = "Little Lemon";
+  const logoAlt             = "Little Lemon logo";
   return (
     <>
       <nav        className = "top-nav">

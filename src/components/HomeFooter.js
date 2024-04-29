@@ -3,7 +3,7 @@ import logoWhite from '../logowhite.png';
 import LemonLink from './LemonLink';
 
 function HomeFooter() {
-  const logoWhiteAlt                        = "Little Lemon";
+  const logoWhiteAlt                        = "Little Lemon monochrome logo";
   const twitterURL                          = "https://twitter.com/littlelemonchicago";
   const instagramURL                        = "https://www.instagram.com/littlelemonchicago/";
   const tiktokURL                           = "https://www.tiktok.com/@littlelemonchicago";

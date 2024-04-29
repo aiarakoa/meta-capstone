@@ -4,7 +4,8 @@ function SkipNavigationLink() {
   return (
     <>
       <a className = "nav-skipper" href = "#main">
-        Click to skip to main content, tab to go to navigation
+        <p>Click to skip to main content,</p>
+        <p>tab to go to navigation</p>
       </a>
     </>
   );
