@@ -11,7 +11,7 @@ function LemonLink(props) {
     }
     return (
         <>
-            <Link to = {`${props.url}`} className = {`${linkLocations[props.linkLocation]} ${linkTypes[props.linkType]}`}></Link>
+            <Link to = {`${props.url}`} className = {`${linkLocations[props.linkLocation]} ${linkTypes[props.linkType]}`}><span class = 'empty-link-no-more'>{props.linkType}</span></Link>
         </>
     );
 }
