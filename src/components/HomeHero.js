@@ -16,7 +16,7 @@ function HomeHero() {
                         Chicago
                     </h4>
                     <p>
-                        We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
+                        We are a family owned restaurant, focused on traditional Mediterranean recipes served with a modern twist.
                     </p>
                     <button onClick = {goReserve}>
                         Reserve a table

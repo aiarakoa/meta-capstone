@@ -89,7 +89,7 @@
 
 .home-hero-text > p {
     color: white;
-    text-align: justify;
+    /* text-align: justify; */
     line-height: 2vw;
     width: 80%;
 }

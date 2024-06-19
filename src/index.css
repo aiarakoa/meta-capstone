@@ -40,11 +40,38 @@ input[type="submit"]:disabled {
 p {
   font-family: 'Karla', sans-serif;
   font-size: 1.1vw;
-  text-align: justify;
+  /* text-align: justify; */
 }
 
 :where(*,
 *::before,
 *::after) {
   box-sizing:inherit !important;
+}
+
+.nav-skipper {
+  flex-shrink: 0;
+  flex-basis: 20.625%;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#nav-skipper-div {
+  top: -50vh;
+  position: absolute;
+  left: 0vw;
+}
+
+#nav-skipper-div:focus {
+  top: 0vh;
+}
+
+.nav-skipper > p {
+  margin-block-start: 0.5em;
+  margin-block-end: .5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
