@@ -9,9 +9,9 @@ function HomeHero() {
         <>
             <section            className = "home-hero">
                 <article        className = "home-hero-article home-hero-text">
-                    <h2>
+                    <h1>
                         Little Lemon
-                    </h2>
+                    </h1>
                     <h4>
                         Chicago
                     </h4>

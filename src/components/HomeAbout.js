@@ -8,9 +8,9 @@ function HomeAbout() {
         <>
             <section            className = "home-about">
                 <article        className = "home-about-article home-about-text">
-                    <h2>
+                    <h1>
                         Little Lemon
-                    </h2>
+                    </h1>
                     <h4>
                         Chicago
                     </h4>
