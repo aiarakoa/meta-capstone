@@ -400,6 +400,8 @@ h5 {
 
 blockquote {
     font-size: 1.1vw;
+    margin-inline-start: 5vw;
+    margin-inline-end: 0vw;
 }
 
 .home-about-text > blockquote > em > p,
