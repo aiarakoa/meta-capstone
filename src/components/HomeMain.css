@@ -12,21 +12,29 @@
     .home-hero {
         flex-basis: calc(500% / 23);
         width: 60%;
+        padding-left: 20%;
+        padding-right: 20%;
     }
     
     .home-highlights {
         flex-basis: calc(600% / 23);
         width: 60%;
+        padding-left: 20%;
+        padding-right: 20%;
     }
     
     .home-testimonials {
         flex-basis: calc(600% / 23);
         width: 70%;
+        padding-left: 15%;
+        padding-right: 15%;
     }
     
     .home-about {
         flex-basis: calc(600% / 23);
         width: 60%;
+        padding-left: 20%;
+        padding-right: 20%;
     }
 
     .home-hero-text {
@@ -52,21 +60,29 @@
     .home-hero {
         flex-basis: 22%;
         width: 80%;
+        padding-left: 10%;
+        padding-right: 10%;
     }
     
     .home-highlights {
         flex-basis: 28%;
         width: 80%;
+        padding-left: 10%;
+        padding-right: 10%;
     }
     
     .home-testimonials {
         flex-basis: 28%;
         width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
     }
     
     .home-about {
         flex-basis: 22%;
         width: 80%;
+        padding-left: 10%;
+        padding-right: 10%;
     }
 
     .home-hero-text {
@@ -87,8 +103,6 @@
 
 .home-hero {
     flex-shrink: 0;
-    padding-left: 20%;
-    padding-right: 20%;
     background: linear-gradient(#495e57 80%, transparent 0%);
     display: flex;
     flex-direction: row;
@@ -97,8 +111,6 @@
 
 .home-highlights {
     flex-shrink: 0;
-    padding-left: 20%;
-    padding-right: 20%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -128,8 +140,6 @@
 
 .home-testimonials {
     flex-shrink: 0;
-    padding-left: 15%;
-    padding-right: 15%;
     background-color: #495E57;
     display: flex;
     flex-direction: row;
@@ -139,8 +149,6 @@
 
 .home-about {
     flex-shrink: 0;
-    padding-left: 20%;
-    padding-right: 20%;
     display: flex;
     flex-direction: row;
     justify-content: center;
