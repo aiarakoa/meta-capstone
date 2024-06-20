@@ -16,4 +16,9 @@
     .home-about-image {
         flex-basis: 35%;
     }
+
+    .home-about-text > p,
+    .home-about-text > blockquote > p{
+        font-size: 1.6vw;
+    }
 }

@@ -271,17 +271,6 @@ h5 {
     margin-bottom: 4vw;
 }
 
-.home-testimonials > h3 {
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    flex-basis: 100%;
-    margin-top: 2vw;
-    margin-bottom: 2vw;
-}
-
 .home-highlights-delivery-figure > figcaption {
     font-weight: bolder;
     display: flex;
@@ -291,76 +280,6 @@ h5 {
     padding-left: 1vw;
     height: 2.5vw;
     font-size: 1vw;
-}
-
-.home-testimonials-left-arrow {
-    flex-shrink: 0;
-    margin-bottom: 10%;
-    background-color: transparent;
-    background-image: url('../leftarrow.png');
-    background-size: 100% 100%;
-}
-
-.home-testimonials-left-arrow:hover {
-    background-color: transparent;
-    background-image: url('../leftarrowactive.png');
-}
-
-.home-testimonials-right-arrow {
-    flex-shrink: 0;
-    margin-bottom: 10%;
-    background-color: transparent;
-    background-image: url('../rightarrow.png');
-    background-size: 100% 100%;
-}
-
-.home-testimonials-right-arrow:hover {
-    background-color: transparent;
-    background-image: url('../rightarrowactive.png');
-}
-
-.home-testimonials-review {
-    background-color: #edefee;
-    flex-shrink: 0;
-    flex-basis: calc(1250% / 70);
-    display: flex;
-    flex-wrap: wrap;
-    height: 45%;
-    margin-bottom: 10%;
-    margin-left: calc(100% / 70);
-    margin-right: calc(100% / 70);
-    padding: calc(50% / 70);
-    border-radius: 1vw 1vw 1vw 1vw;
-}
-
-.home-testimonials-review {
-    font-size: 1vw;
-}
-
-.home-testimonials-review-figure {
-    flex-shrink: 0;
-    flex-basis: 50%;
-    margin: 0;
-}
-
-.home-testimonials-review-figure > img {
-    width: 100%;
-    border-radius: 1vw 1vw 1vw 1vw;
-}
-
-.home-testimonials-review > h5 {
-    flex-shrink: 0;
-    flex-basis: 50%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-}
-
-.home-testimonials-review > p {
-    height: 50%;
-    font-size: 0.85vw;
 }
 
 .home-about-image {

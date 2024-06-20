@@ -1,8 +1,19 @@
+@media (min-width: 600px) {
+    header {
+        height: 10.225vh;
+    }  
+}
+
+@media (max-width: 599px) {
+    header {
+        height: 5vh;
+    }    
+}
+
 header {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 10.225vh;
 }
 
 header > * a {

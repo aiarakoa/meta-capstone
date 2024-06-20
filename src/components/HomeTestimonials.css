@@ -1,0 +1,108 @@
+@media (min-width: 600px) {
+    .home-testimonials-review {
+        font-size: 1vw;
+        height: 45%;
+    }
+
+    .home-testimonials-review > p {
+        font-size: 0.85vw;
+    }
+
+    .home-testimonials-review > h5 {
+        height: 50%;
+    }
+}
+
+@media (max-width: 599px) {
+    .home-testimonials-review {
+        font-size: 1.9vw;
+        height: 60%;
+    }
+
+    .home-testimonials-review > p {
+        font-size: 1.6vw;
+    }
+
+    .home-testimonials > h3 {
+        font-size: 3vw;
+    }
+
+    .home-testimonials-review > h5 {
+        height: 30%;
+    }
+}
+
+.home-testimonials > h3 {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    flex-basis: 100%;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+
+.home-testimonials-review {
+    background-color: #edefee;
+    flex-shrink: 0;
+    flex-basis: calc(1250% / 70);
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    margin-left: calc(100% / 70);
+    margin-right: calc(100% / 70);
+    padding: calc(50% / 70);
+    border-radius: 1vw 1vw 1vw 1vw;
+}
+
+.home-testimonials-left-arrow {
+    flex-shrink: 0;
+    margin-bottom: 10%;
+    background-color: transparent;
+    background-image: url('../leftarrow.png');
+    background-size: 100% 100%;
+}
+
+.home-testimonials-left-arrow:hover {
+    background-color: transparent;
+    background-image: url('../leftarrowactive.png');
+}
+
+.home-testimonials-right-arrow {
+    flex-shrink: 0;
+    margin-bottom: 10%;
+    background-color: transparent;
+    background-image: url('../rightarrow.png');
+    background-size: 100% 100%;
+}
+
+.home-testimonials-right-arrow:hover {
+    background-color: transparent;
+    background-image: url('../rightarrowactive.png');
+}
+
+.home-testimonials-review-figure {
+    flex-shrink: 0;
+    flex-basis: 50%;
+    margin: 0;
+}
+
+.home-testimonials-review-figure > img {
+    width: 100%;
+    border-radius: 1vw 1vw 1vw 1vw;
+}
+
+.home-testimonials-review > h5 {
+    flex-shrink: 0;
+    flex-basis: 50%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-testimonials-review > p {
+    height: 50%;
+    font-size: 0.85vw;
+}
