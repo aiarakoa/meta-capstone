@@ -1,3 +1,4 @@
+import './HomeHero.css';
 import heroImage from '../hero-image.jpg';
 import {useNavigate} from 'react-router-dom';
 

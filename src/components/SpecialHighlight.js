@@ -1,3 +1,4 @@
+import './SpecialHighlight.css';
 import greekSaladImage from '../greek-salad.jpg';
 import bruschettaImage from '../bruschetta.jpg';
 import lemonPieImage from '../lemon-pie.jpg';

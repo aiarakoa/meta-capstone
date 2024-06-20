@@ -1,3 +1,4 @@
+import './HomeHighlights.css';
 import SpecialHighlight from './SpecialHighlight';
 
 function HomeHighlights() {

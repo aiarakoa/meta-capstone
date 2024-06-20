@@ -1,3 +1,4 @@
+import './TimeSlotsInput.css';
 import React, {useReducer} from "react";
 import { useFormikContext, useField } from "formik";
 import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";

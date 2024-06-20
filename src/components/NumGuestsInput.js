@@ -1,3 +1,4 @@
+import './NumGuestsInput.css';
 import React from "react";
 import BaseInput from "./BaseInput";
 

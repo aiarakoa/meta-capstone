@@ -1,3 +1,4 @@
+import './HomeTestimonials.css';
 import Testimonial from './Testimonial';
 
 function HomeTestimonials() {

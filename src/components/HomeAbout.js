@@ -1,3 +1,4 @@
+import './HomeAbout.css';
 import marioImage from '../mario.jpg';
 import marioAdrianoImage from '../mario-adriano-b.jpg';
 

@@ -1,3 +1,4 @@
+import './Testimonial.css';
 import bereniceImage from '../persona-berenice.png';
 import cliffordImage from '../persona-clifford.png';
 import ibrahimaImage from '../persona-ibrahima.png';
