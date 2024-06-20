@@ -1,4 +1,4 @@
-import './OccassionsInput.css';
+import './OccasionsInput.css';
 import React from "react";
 import BaseSelect from "./BaseSelect";
 import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";
