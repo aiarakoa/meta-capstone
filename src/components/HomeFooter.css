@@ -1,5 +1,16 @@
+@media (min-width: 600px) {
+    footer {
+        height: 60.325vh;
+    }
+}
+
+@media (max-width: 599px) {
+    footer {
+        height: 12.5vh;
+    }
+}
+
 footer {
-    height: 60.325vh;
     background-color: #495E57;
     width: 60%;
     padding-left: 20%;
