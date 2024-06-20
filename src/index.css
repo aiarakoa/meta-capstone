@@ -58,6 +58,11 @@ p {
   align-items: center;
 }
 
+.nav-skipper > h1,
+.nav-skipper > h2 {
+    color: #040273;
+}
+
 #nav-skipper-div {
   top: -50vh;
   position: absolute;
