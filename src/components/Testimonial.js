@@ -15,7 +15,7 @@ function Testimonial(props) {
     return (
         <>
             <article        className = "home-testimonials-review">
-                <figure     className = "home-testimonials-review-figure">
+                <figure     className = "home-testimonials-review-figure" role = "none">
                     <img    className = "home-testimonials-review-img"      src = {images[props.userName]}       alt = {altTexts[props.userName]} />
                 </figure>
                 <h5>

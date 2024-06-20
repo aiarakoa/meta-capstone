@@ -9,12 +9,12 @@ function HomeHero() {
         <>
             <section            className = "home-hero">
                 <article        className = "home-hero-article home-hero-text">
-                    <h1>
+                    <h2>
                         Little Lemon
-                    </h1>
-                    <h4>
+                    </h2>
+                    <h3>
                         Chicago
-                    </h4>
+                    </h3>
                     <p>
                         We are a family owned restaurant, focused on traditional Mediterranean recipes served with a modern twist.
                     </p>
@@ -23,7 +23,7 @@ function HomeHero() {
                     </button>
                 </article>
                 <article        className = "home-hero-article home-hero-image">
-                    <figure     className = "home-hero-figure">
+                    <figure     className = "home-hero-figure" role = "none">
                         <img    className = "home-hero-image-img"       src = {heroImage}    alt = {heroImageAlt} />
                     </figure>
                 </article>

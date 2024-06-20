@@ -7,9 +7,11 @@ function Nav() {
   return (
     <>
       <nav        className = "top-nav">
-        <figure   className = "top-logo-figure">
-          <img    className = "top-logo-img"      src = {logo}          alt = {logoAlt} />
-        </figure>
+        <h1>
+          <figure   className = "top-logo-figure" role = "none">
+            <img    className = "top-logo-img"      src = {logo}          alt = {logoAlt} />
+          </figure>
+        </h1>
         <LemonLink linkLocation = 'header'        linkType = 'home'     url = '' />
         <LemonLink linkLocation = 'header'        linkType = 'about'    url = 'about' />
         <LemonLink linkLocation = 'header'        linkType = 'menu'     url = 'menu' />

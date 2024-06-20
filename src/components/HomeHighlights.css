@@ -1,0 +1,5 @@
+.home-highlights > h3 {
+    flex-basis: 70%;
+    flex-shrink: 0;
+    margin: 2vw 0;
+}

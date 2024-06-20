@@ -15,7 +15,7 @@ function SpecialHighlight(props) {
     return (
         <>
             <article        className = "home-highlights-special-card home-highlights-greek-bg">
-                <figure     className = "home-highlights-dish-figure">
+                <figure     className = "home-highlights-dish-figure" role = "none">
                     <img    className = "home-highlights-dish-img"          src = {images[props.specialName]}    alt = {altTexts[props.specialName]} />
                 </figure>
                 <h4>
