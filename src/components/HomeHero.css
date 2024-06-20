@@ -1,3 +1,39 @@
-.home-hero-text>h3 {
+@media (min-width: 600px) {
+    .home-hero-text > h2 {
+        font-size: 3vw;
+    }
+
+    .home-hero-text > h3 {
+        font-size: 2vw;
+    }
+
+    .home-hero-text > p {
+        line-height: 2vw;
+    }
+}
+
+@media (max-width: 599px) {
+    .home-hero-text > h2 {
+        font-size: 6vw;
+    }
+
+    .home-hero-text > h3 {
+        font-size: 3vw;
+    }
+
+    .home-hero-text > p {
+        line-height: 4vw;
+        font-size: 2.2vw
+    }
+}
+
+
+.home-hero-text > h3 {
     color: white;
+}
+
+.home-hero-text > p {
+    color: white;
+    text-align: justify;
+    width: 80%;
 }

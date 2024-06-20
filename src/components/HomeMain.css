@@ -44,6 +44,15 @@
     .home-hero-image {
         flex-basis: 35%;
     }
+
+    .home-about-text,
+    .home-about-image {
+        margin-top: 15%;
+    }
+
+    .home-hero-text > button {
+        margin-top: 50%;
+    }
 }
 
 @media (max-width: 599px) {
@@ -92,6 +101,15 @@
     .home-hero-image {
         flex-basis: 35%;
     }
+
+    .home-about-text,
+    .home-about-image {
+        margin-top: 7.5%;
+    }
+
+    .home-hero-text > button {
+        margin-top: 30%;
+    }
 }
 
 .home-main {
@@ -126,18 +144,6 @@
     margin-bottom: 4vw;
 }
 
-.home-highlights-special-card {
-    flex-shrink: 0;
-    flex-basis: 32%;
-    display: flex;
-    flex-direction: column;
-    height: 72%;
-    margin-bottom: 8%;
-    align-items: center;
-    background-color: #edefee;
-    border-radius: 1vw 1vw 0vw 0vw;
-}
-
 .home-testimonials {
     flex-shrink: 0;
     background-color: #495E57;
@@ -166,19 +172,8 @@
     align-items: flex-start;
 }
 
-.home-hero-text > p {
-    color: white;
-    text-align: justify;
-    line-height: 2vw;
-    width: 80%;
-}
-
 .home-hero-text > h4 {
     color: white;
-}
-
-.home-hero-text > button {
-    margin-top: 50%;
 }
 
 .home-hero-figure {
@@ -244,22 +239,6 @@ h5 {
     color: #76640A;
 }
 
-.home-highlights-special-card > h4 {
-    display: flex;
-    justify-content: space-between;
-    flex-shrink: 0;
-    width: 90%;
-    margin-top: 1vw;
-}
-
-.home-highlights-special-card > p {
-    flex-shrink: 0;
-    width: 90%;
-    line-height: 2vw;
-    color: #495e57;
-    flex-basis: 35%;
-}
-
 .home-highlights-dish-figure {
     margin: 0;
     flex-shrink: 0;
@@ -283,12 +262,6 @@ h5 {
     background-color: #f4ce14;
     padding: .75vw .5vw .75vw .5vw;
     border-radius: 0vw 1vw 1vw 0vw;
-}
-
-.home-highlights-special-card > h5 {
-    margin: 0;
-    margin-left: 7.5%;
-    margin-right: 2.5%;
 }
 
 .home-highlights > button {
@@ -392,7 +365,6 @@ h5 {
 
 .home-about-image {
     flex-shrink: 0;
-    flex-basis: 50%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -400,7 +372,6 @@ h5 {
 
 .home-about-text {
     flex-shrink: 0;
-    flex-basis: 50%;
     display: flex;
     flex-direction: column;
 }

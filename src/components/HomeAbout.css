@@ -1,0 +1,19 @@
+@media (min-width: 600px) {
+    .home-about-text {
+        flex-basis: 65%;
+    }
+
+    .home-about-image {
+        flex-basis: 35%;
+    }
+}
+
+@media (max-width: 599px) {
+    .home-about-text {
+        flex-basis: 65%;
+    }
+
+    .home-about-image {
+        flex-basis: 35%;
+    }
+}
