@@ -1,4 +1,4 @@
-import './ReserveForm.css';
+import './BookingForm.css';
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from 'yup';
@@ -12,7 +12,7 @@ import UserNameInput from './UserNameInput';
 import UserMailInput from './UserMailInput';
 import UserPhoneInput from './UserPhoneInput';
 
-function ReserveForm() {
+function BookingForm() {
     const {isLoading, submit} = useSubmit();
     const {setShowForm, setReservationDetails} = useLittleLemonFormContext();
     const validTimeSlotNames            =   ['eleven30', 'twelve15', 'one00', 'one45'];

@@ -70,7 +70,7 @@ function BaseInput(props) {
 
   return (
     <>
-        <p>
+        <p className = "input-para">
             <label htmlFor = {props.name}>{props.labelText} {emojis[props.name]}</label>
             <input
             id={props.name}

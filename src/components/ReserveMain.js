@@ -1,5 +1,5 @@
 import './ReserveMain.css';
-import ReserveForm from './ReserveForm';
+import BookingForm from './BookingForm';
 import ReservationSummary from './ReservationSummary';
 import {useLittleLemonFormContext} from "../context/LittleLemonFormContext";
 
@@ -8,7 +8,7 @@ function ReserveMain() {
   return (
     <>
         <main id = "main" className = "reserve-main">
-          {showForm   ?   <ReserveForm />   :   <ReservationSummary />}
+          {showForm   ?   <BookingForm />   :   <ReservationSummary />}
         </main>
     </>
   );
