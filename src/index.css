@@ -1,6 +1,6 @@
 @media (min-width: 600px) {
   p {
-    font-size: 1.8vh;
+    font-size: min(1.8vw, 1.8vh);
   }
 }
 
