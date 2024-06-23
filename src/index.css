@@ -39,7 +39,7 @@ input[type="submit"]:disabled {
 
 p {
   font-family: 'Karla', sans-serif;
-  font-size: 1.1vw;
+  font-size: 1.8vh;
 }
 
 :where(*,
