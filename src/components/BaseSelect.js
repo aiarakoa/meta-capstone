@@ -45,7 +45,7 @@ function BaseSelect(props) {
         </figure>
       );
       default:                          return (
-        <p>
+        <p className = "input-status">
           {props.defaultMessage}
         </p>
       )
