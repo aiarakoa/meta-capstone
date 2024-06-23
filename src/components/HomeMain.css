@@ -53,6 +53,18 @@
     .home-hero-text > button {
         margin-top: 50%;
     }
+
+    h1 {
+        font-size: 5vh;
+    }
+
+    h2 {
+        font-size: 4vh;
+    }
+
+    h3 {
+        font-size: 2.5vh;
+    }
 }
 
 @media (max-width: 599px) {
@@ -109,6 +121,18 @@
 
     .home-hero-text > button {
         margin-top: 30%;
+    }
+
+    h1 {
+        font-size: 4vh;
+    }
+
+    h2 {
+        font-size: 6vw;
+    }
+
+    h3 {
+        font-size: 3vw;
     }
 }
 
@@ -203,13 +227,11 @@ h1, h2, h3, h5 {
 
 h1 {
     color: #c3a510;
-    font-size: 6vh;
     margin: 1vw 0 0;
 }
 
 h2 {
     color: #c3a510;
-    font-size: 4vh;
     margin: 2vw 0vw 0vw 0vw;
 }
 
