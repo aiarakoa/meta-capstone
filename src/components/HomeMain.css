@@ -124,15 +124,15 @@
     }
 
     h1 {
-        font-size: 4vh;
+        font-size: 3.5vh;
     }
 
     h2 {
-        font-size: 6vw;
+        font-size: 2.4vh;
     }
 
     h3 {
-        font-size: 3vw;
+        font-size: 1.2vh;
     }
 }
 
@@ -243,7 +243,7 @@ h3 {
 }
 
 h4 {
-    font-size: 1.3vw;
+    font-size: 1.3vh;
     margin: 0vw 0vw 1vw 0vw;
 }
 
@@ -281,6 +281,7 @@ h5 {
 .home-highlights-delivery-img {
     height: 1vw;
     background-color: #f4ce14;
+    opacity: 0.4;
     padding: .75vw .5vw .75vw .5vw;
     border-radius: 0vw 1vw 1vw 0vw;
 }
@@ -297,10 +298,12 @@ h5 {
     display: flex;
     align-items: center;
     background-color: #f4ce14;
+    opacity: 0.4;
     border-radius: 1vw 0vw 0vw 1vw;
     padding-left: 1vw;
     height: 2.5vw;
     font-size: 1vw;
+    color:rgba(16, 16, 16, 0.3);
 }
 
 .home-about-image {

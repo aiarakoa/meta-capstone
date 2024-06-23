@@ -19,6 +19,6 @@
 
     .home-about-text > p,
     .home-about-text > blockquote > p{
-        font-size: 1.6vw;
+        font-size: .65vh;
     }
 }

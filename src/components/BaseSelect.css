@@ -1,3 +1,15 @@
+@media (min-width: 600px) {
+    .bottom-nav-link {
+        font-size: 2vh;
+    }
+}
+
+@media (max-width: 599px) {
+    footer {
+        height: 12.5vh;
+    }
+}
+
 .invalid {
     border-width: .2vw;
     border-color: red;
