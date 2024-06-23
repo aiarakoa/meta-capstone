@@ -1,6 +1,6 @@
 @media (min-width: 600px) {
     .top-nav-link {
-        font-size: 2vh;
+        font-size: min(1.8vw, 2vh);
     }
 
     .top-nav {
