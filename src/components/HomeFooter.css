@@ -54,7 +54,7 @@ footer > section > article {
     flex-basis: 12.5%;
     align-items: center;
     font-family: 'Karla', sans-serif;
-    font-size: 1.5vw;
+    font-size: 2vh;
 }
 
 footer > * a {

@@ -32,7 +32,7 @@ function BaseSelect(props) {
   const helpMessage = () => {
     switch(checkInputStatus(touched[props.name], errors[props.name])) {
       case InputValueType.touchedInvalidInput:         return (
-        <p>
+        <p className = "input-status">
           {errors[props.name]}
         </p>
       );

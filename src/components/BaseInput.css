@@ -13,3 +13,7 @@
     border-width: .1vw;
     border-color: gray;
 }
+
+.input-status {
+    font-size: 1vh;
+}
